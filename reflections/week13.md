@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 13 Reflection
----
-
 # Week 13 Reflection
 
 Respond to the weekly reflection prompt.

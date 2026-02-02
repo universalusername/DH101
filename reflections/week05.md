@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 5 Reflection
----
-
 # Week 5 Reflection
 
 Respond to the weekly reflection prompt.

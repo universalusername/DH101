@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 8 – Networks of Knowledge & Power
----
-
 # Week 8 – Networks of Knowledge & Power
 
 ## The Artifact

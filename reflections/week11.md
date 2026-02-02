@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 11 Reflection
----
-
 # Week 11 Reflection
 
 Respond to the weekly reflection prompt.

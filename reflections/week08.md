@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 8 Reflection
----
-
 # Week 8 Reflection
 
 Respond to the weekly reflection prompt.

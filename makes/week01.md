@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 1 – Reverse Engineering
----
-
 # Week 1 – Reverse Engineering
 
 ## The Artifact

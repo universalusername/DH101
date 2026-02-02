@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 5 – GIF & Remix Culture
----
-
 # Week 5 – GIF & Remix Culture
 
 ## The Artifact

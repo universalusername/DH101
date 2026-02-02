@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 7 Reflection
----
-
 # Week 7 Reflection
 
 Respond to the weekly reflection prompt.

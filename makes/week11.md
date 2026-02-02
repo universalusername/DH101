@@ -1,8 +1,3 @@
----
-layout: default
-title: Week 11 – AI & Labor
----
-
 # Week 11 – AI & Labor
 
 ## The Artifact
