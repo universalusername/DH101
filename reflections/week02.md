@@ -1,3 +1,8 @@
+---
+layout: default
+title: Week 2 Reflection
+---
+
 # Week 2 Reflection
 
 Respond to the weekly reflection prompt.

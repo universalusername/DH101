@@ -1,3 +1,8 @@
+---
+layout: default
+title: Week 10 Reflection
+---
+
 # Week 10 Reflection
 
 Respond to the weekly reflection prompt.

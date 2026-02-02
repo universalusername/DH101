@@ -1,3 +1,8 @@
+---
+layout: default
+title: Week 4 – Comic & Storytelling
+---
+
 # Week 4 – Comic & Storytelling
 
 ## The Artifact

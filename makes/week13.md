@@ -1,3 +1,8 @@
+---
+layout: default
+title: Week 13 – Futures of AI & Humanity
+---
+
 # Week 13 – Futures of AI & Humanity
 
 ## The Artifact

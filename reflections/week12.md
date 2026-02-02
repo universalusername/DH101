@@ -1,3 +1,8 @@
+---
+layout: default
+title: Week 12 Reflection
+---
+
 # Week 12 Reflection
 
 Respond to the weekly reflection prompt.
