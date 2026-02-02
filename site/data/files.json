@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "about.md",
+    "accessibility.md",
+    "how-i-use-ai.md",
+    "sustainability.md"
+  ],
+  "makes": [
+    "week01.md",
+    "week03.md",
+    "week04.md",
+    "week05.md",
+    "week06.md",
+    "week07.md",
+    "week08.md",
+    "week09.md",
+    "week10.md",
+    "week11.md",
+    "week12.md",
+    "week13.md"
+  ],
+  "reflections": [
+    "week01.md",
+    "week02.md",
+    "week03.md",
+    "week04.md",
+    "week05.md",
+    "week06.md",
+    "week07.md",
+    "week08.md",
+    "week09.md",
+    "week10.md",
+    "week11.md",
+    "week12.md",
+    "week13.md"
+  ],
+  "ai-log": [
+    "template-ai-log.md"
+  ],
+  "assets": []
+}

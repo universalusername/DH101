@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DH101 — Forest Theme</title>
+  <link rel="stylesheet" href="assets/css/forest.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <h1>DH101</h1>
+      <button id="nav-toggle" aria-label="Toggle navigation" title="Toggle navigation" aria-pressed="false">🐸</button>
+    </div>
+    <nav id="nav"></nav>
+    <div class="attribution">Background: <a href="https://unsplash.com/photos/the-sun-is-shining-through-the-trees-in-the-forest-8H95uffbu-g" target="_blank" rel="noopener">Joshua Earle / Unsplash</a></div>
+  </aside>
+
+  <main id="content" class="content">
+    <article class="page" id="page">
+      <h2>Welcome to DH101 🌲</h2>
+      <p>This is a forest-themed site view for the DH101 repository. Use the sidebar to jump between pages, makes, and reflections. Markdown files are rendered in the main panel using a client-side renderer.</p>
+      <p>Tip: host the site via GitHub Pages or a local static server so markdown files can be fetched and displayed correctly.</p>
+    </article>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
