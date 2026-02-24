@@ -13,7 +13,22 @@ async function loadMarkdown(path) {
     const res = await fetch(encodeURI(path));
     if (!res.ok) throw new Error('Not found: ' + path);
     const text = await res.text();
-    const html = marked.parse(text);
+    // compute base directory for the markdown file so relative links/images resolve
+    const base = path.replace(/[^\/]+$/, '');
+
+    const renderer = new marked.Renderer();
+    const defaultImage = renderer.image.bind(renderer);
+    renderer.image = function(href, title, text) {
+      // leave absolute URLs alone
+      if (/^(https?:)?\/\//i.test(href) || href.startsWith('/')) {
+        return defaultImage(href, title, text);
+      }
+      // resolve relative href against the markdown file's directory
+      const resolved = encodeURI(base + href);
+      return defaultImage(resolved, title, text);
+    };
+
+    const html = marked.parse(text, { renderer });
     setContent(html);
   } catch (err) {
     setContent('<p>Error loading file: ' + err.message + '</p>');

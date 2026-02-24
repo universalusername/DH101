@@ -19,4 +19,7 @@ Respond to this week’s reflection prompt in 200–300 words.
 - What you changed or decided:
 
 
-<img src="C:\Users\sarah\Downloads\ezgif-8009cfbf9d12d20b.gif" alt="Description of image">
+<img src="C:\Users\sarah\OneDrive\Documents\GitHub\DH101\Makes\Week 5\week05.gif" alt="Description of image">
+
+<!-- Note: originally the image referenced a local path. Please copy your GIF
+	file into this folder (`Makes/Week 5/week05.gif`) so the site can serve it. -->
