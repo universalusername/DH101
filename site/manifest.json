@@ -1,0 +1,41 @@
+{
+  "Makes": [
+    "../Makes/Week 1/week01.md",
+    "../Makes/Week 3/week03.md",
+    "../Makes/Week 4/week04.md",
+    "../Makes/Week 5/week05.md",
+    "../Makes/Week 6/week06.md",
+    "../Makes/Week 7/week07.md",
+    "../Makes/Week 8/week08.md",
+    "../Makes/Week 9/week09.md",
+    "../Makes/Week 10/week10.md",
+    "../Makes/Week 11/week11.md",
+    "../Makes/Week 12/week12.md",
+    "../Makes/Week 13/week13.md"
+  ],
+  "Pages": [
+    "../Pages/about.md",
+    "../Pages/accessibility.md",
+    "../Pages/how-i-use-ai.md",
+    "../Pages/markdown-guide.md",
+    "../Pages/sustainability.md"
+  ],
+  "Relfections": [
+    "../Relfections/week01.md",
+    "../Relfections/week02.md",
+    "../Relfections/week03.md",
+    "../Relfections/week04.md",
+    "../Relfections/week05.md",
+    "../Relfections/week06.md",
+    "../Relfections/week07.md",
+    "../Relfections/week08.md",
+    "../Relfections/week09.md",
+    "../Relfections/week10.md",
+    "../Relfections/week11.md",
+    "../Relfections/week12.md",
+    "../Relfections/week13.md"
+  ],
+  "AI-Log": [
+    "../AI-Log/template-ai-log.md"
+  ]
+}
