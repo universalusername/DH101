@@ -10,11 +10,21 @@ function setContent(html) {
 
 async function loadMarkdown(path) {
   try {
-    const res = await fetch(encodeURI(path));
+    // Resolve the markdown path relative to the site index so browsers
+    // produce a proper absolute URL (handles spaces and ../ segments).
+    const mdUrl = new URL(path, location.href).href;
+    const res = await fetch(mdUrl);
     if (!res.ok) throw new Error('Not found: ' + path);
     let text = await res.text();
     // compute base directory for the markdown file so relative links/images resolve
     const base = path.replace(/[^\\/]+$/, '');
+
+    // If the whole file is wrapped in a code fence like ```markdown ... ```
+    // unwrap it so the content renders as markdown.
+    if (/^```[\s\S]*```\s*$/.test(text)) {
+      const m = text.match(/^```[^\n]*\n([\s\S]*?)\n```\s*$/);
+      if (m) text = m[1];
+    }
 
     // Preprocess markdown text to convert Windows absolute paths to relative filenames
     // Example: C:\Users\sarah\...\week05.gif  -> week05.gif
@@ -36,7 +46,10 @@ async function loadMarkdown(path) {
       // leave absolute URLs alone
       if (/^(https?:)?\/\//i.test(src) || src.startsWith('/')) return;
       // resolve relative path against the markdown file's directory
-      img.src = encodeURI(base + src);
+      // Use the URL constructor to produce a correct absolute URL
+      // (this handles spaces and ../ segments reliably).
+      const resolved = new URL(base + src, location.href).href;
+      img.src = resolved;
     });
     setContent(temp.innerHTML);
   } catch (err) {

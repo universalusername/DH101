@@ -4,6 +4,8 @@
 Describe or embed your artifact here.
 Include images, links, or media as appropriate.
 
+![Artifact image](/Makes/Week 3/week03.png)
+
 ## Process Notes
 How did you make this?
 What tools did you use?
@@ -17,5 +19,3 @@ Respond to this week’s reflection prompt in 200–300 words.
 - AI prompts (summary):
 - What AI generated:
 - What you changed or decided:
-
-![Artifact image](week03.png)

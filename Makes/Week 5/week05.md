@@ -2,7 +2,8 @@
 
 ## The Artifact
 Describe or embed your artifact here.
-Include images, links, or media as appropriate.
+
+![Description of image](week05.gif)
 
 ## Process Notes
 How did you make this?
@@ -17,6 +18,3 @@ Respond to this week’s reflection prompt in 200–300 words.
 - AI prompts (summary):
 - What AI generated:
 - What you changed or decided:
-
-
-![Description of image](week05.gif)
