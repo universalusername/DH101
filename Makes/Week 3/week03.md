@@ -4,6 +4,8 @@
 Describe or embed your artifact here.
 Include images, links, or media as appropriate.
 
+![Artifact image](week03.png)
+
 ## Process Notes
 How did you make this?
 What tools did you use?

@@ -12,27 +12,47 @@ async function loadMarkdown(path) {
   try {
     const res = await fetch(encodeURI(path));
     if (!res.ok) throw new Error('Not found: ' + path);
-    const text = await res.text();
+    let text = await res.text();
     // compute base directory for the markdown file so relative links/images resolve
-    const base = path.replace(/[^\/]+$/, '');
+    const base = path.replace(/[^\\/]+$/, '');
 
-    const renderer = new marked.Renderer();
-    const defaultImage = renderer.image.bind(renderer);
-    renderer.image = function(href, title, text) {
+    // Preprocess markdown text to convert Windows absolute paths to relative filenames
+    // Example: C:\Users\sarah\...\week05.gif  -> week05.gif
+    text = text.replace(/(["'\(])([A-Za-z]:\\[^\)"']+)(["'\)])/g, (m, lead, p, trail) => {
+      const parts = p.split(/[/\\\\]/);
+      const filename = parts.pop();
+      return lead + filename + trail;
+    });
+
+    // Render markdown to HTML, then fix image `src` attributes in the DOM so
+    // relative links resolve against the markdown file's directory.
+    const htmlRaw = marked.parse(text);
+    const temp = document.createElement('div');
+    temp.innerHTML = htmlRaw;
+    temp.querySelectorAll('img').forEach(img => {
+      let src = img.getAttribute('src') || '';
+      // normalize backslashes
+      src = src.replace(/\\/g, '/');
       // leave absolute URLs alone
-      if (/^(https?:)?\/\//i.test(href) || href.startsWith('/')) {
-        return defaultImage(href, title, text);
-      }
-      // resolve relative href against the markdown file's directory
-      const resolved = encodeURI(base + href);
-      return defaultImage(resolved, title, text);
-    };
-
-    const html = marked.parse(text, { renderer });
-    setContent(html);
+      if (/^(https?:)?\/\//i.test(src) || src.startsWith('/')) return;
+      // resolve relative path against the markdown file's directory
+      img.src = encodeURI(base + src);
+    });
+    setContent(temp.innerHTML);
   } catch (err) {
     setContent('<p>Error loading file: ' + err.message + '</p>');
   }
+}
+
+function loadAsset(path) {
+  const ext = path.split('.').pop().toLowerCase();
+  if (['png','jpg','jpeg','gif','svg','webp'].includes(ext)) {
+    setContent('<div class="asset-view"><img src="' + encodeURI(path) + '" alt="" /></div>');
+    return;
+  }
+  // fallback: try to fetch and display as text
+  fetch(encodeURI(path)).then(r => r.text()).then(txt => setContent('<pre>' + txt.replace(/</g,'&lt;') + '</pre>'))
+    .catch(e => setContent('<p>Error loading asset: ' + e.message + '</p>'));
 }
 
 function buildMenu(manifest) {
@@ -54,12 +74,15 @@ function buildMenu(manifest) {
 
 function showFolderPage(manifest, folder) {
   const files = manifest[folder] || [];
-  if (files.length === 0) {
-    setContent('<p>No files listed for this folder.</p>');
+  // Only show markdown pages in the folder menu; images and other assets
+  // should be embedded inside the markdown files themselves.
+  const mdFiles = files.filter(p => p.toLowerCase().endsWith('.md'));
+  if (mdFiles.length === 0) {
+    setContent('<p>No markdown pages listed for this folder.</p>');
     return;
   }
   const list = document.createElement('ul');
-  files.forEach(p => {
+  mdFiles.forEach(p => {
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = '#';
