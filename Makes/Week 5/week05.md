@@ -20,6 +20,3 @@ Respond to this week’s reflection prompt in 200–300 words.
 
 
 ![Description of image](week05.gif)
-
-<!-- If the GIF still doesn't appear: clear browser cache, then open
-	Network inspector and paste the requested URL + status here. -->
