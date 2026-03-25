@@ -4,7 +4,7 @@
 Describe or embed your artifact here.
 Include images, links, or media as appropriate.
 
-![Artifact image](/Makes/Week 3/week03.png)
+<img src="week03.png" alt="Description of the image">
 
 ## Process Notes
 How did you make this?

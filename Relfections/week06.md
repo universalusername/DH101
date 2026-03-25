@@ -3,3 +3,5 @@
 # Week 6 Reflection
 
 Reflect 6: What do we gain/lose when machines “read” literature for us?
+
+When machines "read" literature for us, we gain the advantage of speed and efficiency, as they are able to handle large volumes of text in a very short amount of time. Machines' translation abilities also enhance the interconnectedness of our increasingly global society, as now makes communication smoother between people who might not otherwise be connected. On the other hand, we lose the nuance in a human's analysis of a text, which includes interpretation that is affected by individual experience. Machines cannot articulate how one's ethnicity, gender, level of education, health, wealth, belief system, and other such things impact personal meaning and interpretation of themes in a text. While human reading shows the broad spectrum of meaning, machine reading condenses meaning into a singular, concrete definition that leaves no room for further exposition nor emotional reaction. Falling into those machine-based patterns reduces our worldview, individuality, and weakens our ability to create and interpret meaning for ourselves.
