@@ -221,8 +221,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   buildMenu(manifest);
   // Home header (README)
   document.getElementById('home-header').addEventListener('click', () => {
-    loadMarkdown('../README.md');
+    loadMarkdown('./README.md');
   });
   // Initially load README
-  loadMarkdown('../README.md');
+  loadMarkdown('./README.md');
 });

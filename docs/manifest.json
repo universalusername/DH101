@@ -1,163 +1,163 @@
 {
   "About Me": [
     {
-      "path": "/Pages/about.md",
+      "path": "./Pages/about.md",
       "label": "About Me"
     }
   ],
   "How I Use AI": [
     {
-      "path": "/Pages/how-i-use-ai.md",
+      "path": "./Pages/how-i-use-ai.md",
       "label": "How I Use AI"
     }
   ],
   "Makes": [
     {
-      "path": "/Makes/Week 1/week01.md",
+      "path": "./Makes/Week 1/week01.md",
       "label": "Week 1",
       "description": "Reverse Engineering"
     },
     {
-      "path": "/Makes/Week 3/week03.md",
+      "path": "./Makes/Week 3/week03.md",
       "label": "Week 3",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 4/week04.md",
+      "path": "./Makes/Week 4/week04.md",
       "label": "Week 4",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 5/week05.md",
+      "path": "./Makes/Week 5/week05.md",
       "label": "Week 5",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 6/week06.md",
+      "path": "./Makes/Week 6/week06.md",
       "label": "Week 6",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 7/week07.md",
+      "path": "./Makes/Week 7/week07.md",
       "label": "Week 7",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 8/week08.md",
+      "path": "./Makes/Week 8/week08.md",
       "label": "Week 8",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 9/week09.md",
+      "path": "./Makes/Week 9/week09.md",
       "label": "Week 9",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 10/week10.md",
+      "path": "./Makes/Week 10/week10.md",
       "label": "Week 10",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 11/week11.md",
+      "path": "./Makes/Week 11/week11.md",
       "label": "Week 11",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 12/week12.md",
+      "path": "./Makes/Week 12/week12.md",
       "label": "Week 12",
       "description": "Add description here"
     },
     {
-      "path": "/Makes/Week 13/week13.md",
+      "path": "./Makes/Week 13/week13.md",
       "label": "Week 13",
       "description": "Add description here"
     }
   ],
   "Relfections": [
     {
-      "path": "/Relfections/week01.md",
+      "path": "./Relfections/week01.md",
       "label": "Week 1",
       "description": "Mission briefing and first reflections."
     },
     {
-      "path": "/Relfections/week02.md",
+      "path": "./Relfections/week02.md",
       "label": "Week 2",
       "description": "Course corrections and new questions."
     },
     {
-      "path": "/Relfections/week03.md",
+      "path": "./Relfections/week03.md",
       "label": "Week 3",
       "description": "Field notes from this week's experiments."
     },
     {
-      "path": "/Relfections/week04.md",
+      "path": "./Relfections/week04.md",
       "label": "Week 4",
       "description": "What worked, what drifted, and why."
     },
     {
-      "path": "/Relfections/week05.md",
+      "path": "./Relfections/week05.md",
       "label": "Week 5",
       "description": "Checkpoint log of methods and outcomes."
     },
     {
-      "path": "/Relfections/week06.md",
+      "path": "./Relfections/week06.md",
       "label": "Week 6",
       "description": "Mid-mission recalibration and insights."
     },
     {
-      "path": "/Relfections/week07.md",
+      "path": "./Relfections/week07.md",
       "label": "Week 7",
       "description": "Patterns discovered across the project."
     },
     {
-      "path": "/Relfections/week08.md",
+      "path": "./Relfections/week08.md",
       "label": "Week 8",
       "description": "Challenges encountered and solved."
     },
     {
-      "path": "/Relfections/week09.md",
+      "path": "./Relfections/week09.md",
       "label": "Week 9",
       "description": "Expanded scope and evolving direction."
     },
     {
-      "path": "/Relfections/week10.md",
+      "path": "./Relfections/week10.md",
       "label": "Week 10",
       "description": "System checks on process and progress."
     },
     {
-      "path": "/Relfections/week11.md",
+      "path": "./Relfections/week11.md",
       "label": "Week 11",
       "description": "Interpretation of key findings so far."
     },
     {
-      "path": "/Relfections/week12.md",
+      "path": "./Relfections/week12.md",
       "label": "Week 12",
       "description": "Final approach before landing the project."
     },
     {
-      "path": "/Relfections/week13.md",
+      "path": "./Relfections/week13.md",
       "label": "Week 13",
       "description": "Mission summary and final reflection."
     }
   ],
   "AI-Log": [
-    "/AI-Log/template-ai-log.md"
+    "./AI-Log/template-ai-log.md"
   ],
   "Accessibility": [
     {
-      "path": "/Pages/accessibility.md",
+      "path": "./Pages/accessibility.md",
       "label": "Accessibility"
     }
   ],
   "Sustainability and Ethics": [
     {
-      "path": "/Pages/sustainability.md",
+      "path": "./Pages/sustainability.md",
       "label": "Sustainability and Ethics"
     }
   ],
   "Markdown Guide": [
     {
-      "path": "/Pages/markdown-guide.md",
+      "path": "./Pages/markdown-guide.md",
       "label": "Markdown Guide"
     }
   ]
