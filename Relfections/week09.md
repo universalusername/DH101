@@ -1,5 +1,5 @@
-> **Markdown help:** See [markdown-guide.md](../pages/markdown-guide.md) for formatting tips and a reflection template.
-
 # Week 9 Reflection
 
 Reflect 9: What is creativity when AI can generate endlessly? Where is the human in generative work?
+
+When AI can generate endlessly, creativity is no longer defined by production but by direction. Human creativity lies in the ability to guide, reinterpret, and evolve ideas over time, rather than simply generate them. In generative works, humans are present in rulesets. Whether that is the rulesets (code) written that defines how an AI should work, or instead simply a prompt detailing the who/what/when...etc. of a generated work, both are examples of human influence over AI and what it 'creates'. AI is only capable of 'creating' within those specified guidelines, after all. When building the bot, I got to experiment with enforcing my own rulesets and seeing how the AI altered its responses based on them. More description offered more detailed responses, but they never strayed beyond what I had outlined. I was even able to implicitly direct the AI to 'create' certain things over others; responding to messages with longer paragraph formats and detailed narration caused that trait to appear more often. I was in control most when creating the rulesets and guiding responses to better fit the simple story I laid out.

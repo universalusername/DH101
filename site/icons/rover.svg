@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Rover">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f2937"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9a3412"/>
+      <stop offset="100%" stop-color="#5b2110"/>
+    </linearGradient>
+    <linearGradient id="hull" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e5e7eb"/>
+      <stop offset="55%" stop-color="#9ca3af"/>
+      <stop offset="100%" stop-color="#4b5563"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#93c5fd"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#sky)"/>
+  <path d="M0 172c46-10 86-12 128-4 42 8 86 6 128-8v96H0z" fill="url(#ground)"/>
+  <g opacity="0.28">
+    <circle cx="38" cy="44" r="1.7" fill="#e2e8f0"/>
+    <circle cx="214" cy="62" r="1.6" fill="#e2e8f0"/>
+  </g>
+  <rect x="70" y="116" width="116" height="52" rx="12" fill="url(#hull)" stroke="#4b5563" stroke-width="5"/>
+  <rect x="100" y="92" width="58" height="18" rx="6" fill="#d1d5db" stroke="#6b7280" stroke-width="3"/>
+  <line x1="128" y1="92" x2="128" y2="64" stroke="#94a3b8" stroke-width="4"/>
+  <circle cx="128" cy="61" r="8" fill="#e5e7eb" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="150" y="74" width="40" height="14" rx="3" fill="url(#panel)" stroke="#60a5fa" stroke-width="2" transform="rotate(-10 150 74)"/>
+  <line x1="150" y1="74" x2="141" y2="92" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="88" y1="168" x2="74" y2="186" stroke="#9ca3af" stroke-width="4"/>
+  <line x1="128" y1="168" x2="128" y2="188" stroke="#9ca3af" stroke-width="4"/>
+  <line x1="168" y1="168" x2="182" y2="186" stroke="#9ca3af" stroke-width="4"/>
+  <g>
+    <circle cx="74" cy="192" r="17" fill="#111827" stroke="#6b7280" stroke-width="6"/>
+    <circle cx="74" cy="192" r="5" fill="#9ca3af"/>
+    <circle cx="128" cy="196" r="17" fill="#111827" stroke="#6b7280" stroke-width="6"/>
+    <circle cx="128" cy="196" r="5" fill="#9ca3af"/>
+    <circle cx="182" cy="192" r="17" fill="#111827" stroke="#6b7280" stroke-width="6"/>
+    <circle cx="182" cy="192" r="5" fill="#9ca3af"/>
+  </g>
+</svg>

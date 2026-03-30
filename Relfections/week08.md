@@ -1,5 +1,7 @@
-> **Markdown help:** See [markdown-guide.md](../pages/markdown-guide.md) for formatting tips and a reflection template.
-
 # Week 8 Reflection
 
 Reflect 8: Who is visible/invisible in AI networks? How does visualization reveal or obscure power?
+
+The most visible 'actors' in AI networks are faceless entities: megacorporations and consumer bases. Consumers are the drivers of the system, as their demand perpetuates the actions of the companies, that is, mining, manufacturing, distribution, etc. The least visible 'actors' are the laborers and the environment. Miners, factory workers, drivers, content moderators...all are essential for the network to function, and yet they have the least representation. They carry out the most physically demanding and injury/illness prone work but receive none of the recognition and all of the harmful side effects.  The environment, as well, can be considered invisible, as it has no advocates of its own and every stage of the network causes resource depletion, pollution, habitat loss, and more.
+
+Visualization in a network's structure is able to emphasize certain groups while minimizing others. Focusing on corporations highlights economic power, while focusing on labor reveals exploitation and inequality. Visualization therefore shapes how we understand responsibility and power by determining which 'actors' are emphasized and which are overlooked.

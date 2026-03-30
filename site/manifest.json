@@ -1,4 +1,16 @@
 {
+  "About Me": [
+    {
+      "path": "../Pages/about.md",
+      "label": "About Me"
+    }
+  ],
+  "How I Use AI": [
+    {
+      "path": "../Pages/how-i-use-ai.md",
+      "label": "How I Use AI"
+    }
+  ],
   "Makes": [
     {
       "path": "../Makes/Week 1/week01.md",
@@ -60,13 +72,6 @@
       "label": "Week 13",
       "description": "Add description here"
     }
-  ],
-  "Pages": [
-    "../Pages/about.md",
-    "../Pages/accessibility.md",
-    "../Pages/how-i-use-ai.md",
-    "../Pages/markdown-guide.md",
-    "../Pages/sustainability.md"
   ],
   "Relfections": [
     {
@@ -137,5 +142,23 @@
   ],
   "AI-Log": [
     "../AI-Log/template-ai-log.md"
+  ],
+  "Accessibility": [
+    {
+      "path": "../Pages/accessibility.md",
+      "label": "Accessibility"
+    }
+  ],
+  "Sustainability and Ethics": [
+    {
+      "path": "../Pages/sustainability.md",
+      "label": "Sustainability and Ethics"
+    }
+  ],
+  "Markdown Guide": [
+    {
+      "path": "../Pages/markdown-guide.md",
+      "label": "Markdown Guide"
+    }
   ]
 }

@@ -246,7 +246,7 @@ main#content pre {
   transform: translateX(22px) translateY(-2px) scale(1.01);
 }
 
-.planet-core {
+.planet-core--planet {
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
@@ -259,27 +259,27 @@ main#content pre {
   position: relative;
 }
 
-.planet-core[data-planet="oceanic"] {
+.planet-core--planet[data-planet="oceanic"] {
   background:
     radial-gradient(circle at 28% 30%, #ffffff9a 0 12%, transparent 24%),
     radial-gradient(circle at 68% 72%, #00000036 0 32%, transparent 48%),
     linear-gradient(135deg, #22d3ee, #3b82f6 48%, #6366f1 100%);
 }
 
-.planet-core[data-planet="gas-giant"] {
+.planet-core--planet[data-planet="gas-giant"] {
   background:
     radial-gradient(circle at 26% 28%, #ffffff8d 0 12%, transparent 24%),
     repeating-linear-gradient(165deg, #f59e0b 0 7px, #fb7185 7px 14px, #f97316 14px 21px);
 }
 
-.planet-core[data-planet="lava"] {
+.planet-core--planet[data-planet="lava"] {
   background:
     radial-gradient(circle at 24% 26%, #ffffff88 0 12%, transparent 24%),
     radial-gradient(circle at 55% 62%, #ff3f1f 0 12%, transparent 20%),
     linear-gradient(135deg, #7f1d1d, #b91c1c 46%, #f97316 100%);
 }
 
-.planet-core[data-planet="ringed"]::before {
+.planet-core--planet[data-planet="ringed"]::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -292,23 +292,231 @@ main#content pre {
   box-shadow: 0 0 8px #d1b2ff66;
 }
 
-.planet-core[data-planet="ringed"] {
+.planet-core--planet[data-planet="ringed"] {
   background:
     radial-gradient(circle at 26% 28%, #ffffff8d 0 12%, transparent 24%),
     linear-gradient(135deg, #a78bfa, #8b5cf6 48%, #4f46e5 100%);
 }
 
-.planet-core[data-planet="crystal"] {
+.planet-core--planet[data-planet="crystal"] {
   background:
     radial-gradient(circle at 24% 26%, #ffffffaa 0 12%, transparent 24%),
     conic-gradient(from 30deg, #22d3ee, #38bdf8, #60a5fa, #a78bfa, #22d3ee);
 }
 
-.planet-core[data-planet="forest"] {
+.planet-core--planet[data-planet="forest"] {
   background:
     radial-gradient(circle at 26% 28%, #ffffff8f 0 12%, transparent 24%),
     radial-gradient(circle at 62% 66%, #14532d 0 18%, transparent 28%),
     linear-gradient(135deg, #22c55e, #14b8a6 55%, #3b82f6 100%);
+}
+
+.planet-core--space-image {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  border: 1px solid #ffffff2e;
+  background: radial-gradient(circle at 30% 24%, #ffffff2e, #101a33 68%);
+  box-shadow: 0 0 12px #7b2fff52;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.space-icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.planet-core--space {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 10px #9dc9ff4a, 0 0 18px #7b2fff2b;
+  background: radial-gradient(circle at 36% 30%, #ffffff 0 16%, #d7e2ff 17% 44%, #5b57d9 45% 100%);
+  position: relative;
+  overflow: visible;
+  animation: iconDrift 8s ease-in-out infinite;
+}
+
+.planet-core--space::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 132%;
+  height: 132%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff40 0 32%, #ffffff00 72%);
+  filter: blur(0.6px);
+  z-index: -1;
+}
+
+.planet-core--space::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44%;
+  height: 44%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 34% 32%, #ffffff 0 34%, #ffffff00 72%);
+  pointer-events: none;
+}
+
+.planet-core--space[data-planet="black-hole"] {
+  background:
+    radial-gradient(circle at 50% 50%, #030307 0 23%, #120d27 24% 44%, #5b21b6 45% 60%, #fb923c 61% 66%, #1b0a35 67% 100%);
+  box-shadow: 0 0 12px #7c3aed70, 0 0 24px #fb923c45;
+}
+
+.planet-core--space[data-planet="black-hole"]::before {
+  width: 150%;
+  height: 56%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffffff00 0%, #fb923c88 38%, #a78bfaaa 52%, #ffffff00 100%);
+  transform: translate(-50%, -50%) rotate(-18deg);
+  filter: blur(0.4px);
+  animation: ringSpin 18s linear infinite;
+}
+
+.planet-core--space[data-planet="black-hole"]::after {
+  width: 26%;
+  height: 26%;
+  background: radial-gradient(circle, #000 0 74%, #0000 76%);
+}
+
+.planet-core--space[data-planet="astronaut"] {
+  background: linear-gradient(145deg, #e5ecff, #b8c7e4 58%, #7c8eaf);
+  box-shadow: 0 0 12px #e2e8f084, inset -4px -6px 10px #4b5f7e55;
+}
+
+.planet-core--space[data-planet="astronaut"]::before {
+  width: 62%;
+  height: 62%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 36%, #ffffff 0 20%, #d9f0ff 21% 40%, #6d8fb0 41% 100%);
+  border: 2px solid #f1f7ff;
+  transform: translate(-50%, -64%);
+}
+
+.planet-core--space[data-planet="astronaut"]::after {
+  width: 70%;
+  height: 46%;
+  border-radius: 16px 16px 22px 22px;
+  background:
+    linear-gradient(180deg, #f8fbff 0 58%, #c7d4ea 59% 100%);
+  border: 2px solid #e8f0ff;
+  transform: translate(-50%, 12%);
+}
+
+.planet-core--space[data-planet="rocket"] {
+  background:
+    radial-gradient(120% 130% at 38% 28%, #ffffff66, transparent 42%),
+    linear-gradient(165deg, #eef2f8 0 34%, #a7b3c8 35% 72%, #56647c 73% 100%);
+  border-radius: 42% 42% 26% 26% / 58% 58% 34% 34%;
+  box-shadow: 0 0 12px #a5b4fc7a, inset -4px -8px 12px #3f4d664f;
+}
+
+.planet-core--space[data-planet="rocket"]::before {
+  width: 26%;
+  height: 26%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #d8f4ff 0 48%, #3b82f6 50% 100%);
+  border: 2px solid #e0f2fe;
+  transform: translate(-50%, -28%);
+}
+
+.planet-core--space[data-planet="rocket"]::after {
+  width: 30%;
+  height: 32%;
+  border-radius: 42% 42% 60% 60%;
+  background:
+    radial-gradient(circle at 50% 18%, #fff3b0 0 18%, #facc15 22% 50%, #f97316 54% 100%);
+  transform: translate(-50%, 92%);
+}
+
+.planet-core--space[data-planet="rover"] {
+  background:
+    linear-gradient(180deg, #b2bcc9 0 34%, #7a8597 35% 72%, #4b5563 73% 100%);
+  border-radius: 20px 20px 14px 14px;
+  box-shadow: 0 0 10px #94a3b866, inset -3px -6px 10px #1118275c;
+}
+
+.planet-core--space[data-planet="rover"]::before {
+  width: 74%;
+  height: 14%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e5e7eb, #9ca3af);
+  transform: translate(-50%, -176%);
+}
+
+.planet-core--space[data-planet="rover"]::after {
+  width: 86%;
+  height: 30%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 16% 52%, #101623 0 20%, #5b6779 22% 37%, transparent 39%),
+    radial-gradient(circle at 50% 52%, #101623 0 20%, #5b6779 22% 37%, transparent 39%),
+    radial-gradient(circle at 84% 52%, #101623 0 20%, #5b6779 22% 37%, transparent 39%),
+    linear-gradient(180deg, #d1d5db 0 38%, #6b7280 39% 100%);
+  transform: translate(-50%, 76%);
+}
+
+.planet-core--space[data-planet="star"] {
+  background:
+    radial-gradient(circle at 46% 34%, #fff8d6 0 22%, #fcd34d 23% 50%, #f59e0b 51% 100%);
+  clip-path: polygon(50% 2%, 58% 28%, 84% 16%, 72% 40%, 98% 50%, 72% 60%, 84% 84%, 58% 72%, 50% 98%, 42% 72%, 16% 84%, 28% 60%, 2% 50%, 28% 40%, 16% 16%, 42% 28%);
+  border-radius: 0;
+  box-shadow: 0 0 14px #fbbf2488, 0 0 26px #fb923c66;
+}
+
+.planet-core--space[data-planet="star"]::before {
+  width: 146%;
+  height: 146%;
+  background: radial-gradient(circle, #fff4 0 30%, #fff0 72%);
+}
+
+.planet-core--space[data-planet="comet"] {
+  background: radial-gradient(circle at 40% 42%, #ffffff 0 20%, #ddd6fe 21% 44%, #6366f1 45% 100%);
+  box-shadow: 0 0 12px #a5b4fc88, 0 0 20px #93c5fd4d;
+}
+
+.planet-core--space[data-planet="comet"]::before {
+  width: 180%;
+  height: 76%;
+  border-radius: 999px;
+  transform: translate(-76%, -36%) rotate(-18deg);
+  background: linear-gradient(90deg, #ffffff00 0%, #93c5fd66 30%, #c4b5fd88 56%, #e0e7ff00 100%);
+}
+
+.planet-core--space[data-planet="comet"]::after {
+  width: 34%;
+  height: 34%;
+  background: radial-gradient(circle, #fff 0 34%, #ddd6fe 36% 70%, #0000 72%);
+}
+
+@keyframes iconDrift {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.015) translateY(-0.5px);
+    filter: brightness(1.04);
+  }
+}
+
+@keyframes ringSpin {
+  from { transform: translate(-50%, -50%) rotate(-18deg); }
+  to { transform: translate(-50%, -50%) rotate(342deg); }
 }
 
 .week-card-title {

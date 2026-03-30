@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Star">
+  <defs>
+    <radialGradient id="space" cx="50%" cy="46%" r="82%">
+      <stop offset="0%" stop-color="#1a2954"/>
+      <stop offset="100%" stop-color="#070b18"/>
+    </radialGradient>
+    <radialGradient id="corona" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7d6" stop-opacity="0"/>
+      <stop offset="46%" stop-color="#fde68a" stop-opacity="0.15"/>
+      <stop offset="74%" stop-color="#f59e0b" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="starBody" cx="42%" cy="34%" r="66%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="32%" stop-color="#fef3c7"/>
+      <stop offset="64%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#space)"/>
+  <circle cx="128" cy="128" r="96" fill="url(#corona)"/>
+  <g opacity="0.36">
+    <circle cx="42" cy="48" r="1.8" fill="#f8fafc"/>
+    <circle cx="70" cy="84" r="1.5" fill="#dbeafe"/>
+    <circle cx="212" cy="44" r="1.7" fill="#f8fafc"/>
+    <circle cx="224" cy="168" r="1.5" fill="#dbeafe"/>
+  </g>
+  <circle cx="128" cy="128" r="48" fill="url(#starBody)"/>
+  <path d="M128 82c12 6 24 20 27 34-15-7-30-9-46-5 4-12 10-22 19-29z" fill="#fff7d6" opacity="0.55"/>
+  <path d="M94 132c24-8 42-6 68 7" stroke="#f97316" stroke-opacity="0.45" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="116" cy="112" r="8" fill="#ffffff" opacity="0.55"/>
+</svg>

@@ -1,0 +1,115 @@
+<svg viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="starGlow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <radialGradient id="coreGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="15%" style="stop-color:#ffff99;stop-opacity:0.95" />
+      <stop offset="35%" style="stop-color:#88ddff;stop-opacity:0.8" />
+      <stop offset="60%" style="stop-color:#4488ff;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#1a0044;stop-opacity:0" />
+    </radialGradient>
+    
+    <linearGradient id="galacticPlane" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#1a0044;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#440088;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#6644ff;stop-opacity:0.8" />
+      <stop offset="60%" style="stop-color:#4488ff;stop-opacity:0.85" />
+      <stop offset="75%" style="stop-color:#1a0044;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Black space background -->
+  <rect width="1600" height="1000" fill="#000000"/>
+  
+  <!-- Dark nebula clouds -->
+  <ellipse cx="700" cy="400" rx="550" ry="280" fill="#0a0020" opacity="0.6"/>
+  <ellipse cx="900" cy="350" rx="450" ry="250" fill="#1a0040" opacity="0.5"/>
+  <ellipse cx="600" cy="450" rx="400" ry="220" fill="#0a0030" opacity="0.4"/>
+  
+  <!-- Galactic plane gradient band -->
+  <ellipse cx="800" cy="400" rx="700" ry="280" fill="url(#galacticPlane)" opacity="0.9"/>
+  
+  <!-- Bright galactic core -->
+  <ellipse cx="800" cy="400" rx="300" ry="200" fill="url(#coreGlow)" opacity="0.95"/>
+  
+  <!-- Inner bright region -->
+  <ellipse cx="800" cy="400" rx="200" ry="140" fill="#ffffff" opacity="0.3"/>
+  
+  <!-- Dust lane shadows -->
+  <path d="M 400 250 Q 600 350 900 380 Q 1100 390 1200 350" stroke="#0a0010" stroke-width="120" fill="none" opacity="0.4"/>
+  <path d="M 350 550 Q 600 450 950 420 Q 1150 410 1300 450" stroke="#0a0010" stroke-width="100" fill="none" opacity="0.35"/>
+  
+  <!-- Nebula wisps -->
+  <ellipse cx="550" cy="350" rx="180" ry="100" fill="#4488ff" opacity="0.15"/>
+  <ellipse cx="1050" cy="380" rx="200" ry="110" fill="#6644ff" opacity="0.12"/>
+  <ellipse cx="700" cy="280" rx="150" ry="80" fill="#8855ff" opacity="0.1"/>
+  <ellipse cx="900" cy="480" rx="170" ry="90" fill="#4488ff" opacity="0.1"/>
+  
+  <!-- Dense star field throughout -->
+  <!-- Upper region stars -->
+  <circle cx="100" cy="100" r="1" fill="#ffffff" opacity="0.8" filter="url(#starGlow)"/>
+  <circle cx="180" cy="80" r="0.8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="250" cy="120" r="1.2" fill="#ccddff" opacity="0.8"/>
+  <circle cx="350" cy="100" r="0.9" fill="#ffffff" opacity="0.85"/>
+  <circle cx="450" cy="140" r="1" fill="#ffccff" opacity="0.7"/>
+  <circle cx="550" cy="90" r="0.8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="680" cy="110" r="1.1" fill="#ccddff" opacity="0.8"/>
+  <circle cx="800" cy="80" r="0.9" fill="#ffffff" opacity="0.85"/>
+  <circle cx="950" cy="120" r="1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="1100" cy="95" r="0.8" fill="#ccddff" opacity="0.85"/>
+  <circle cx="1250" cy="140" r="1.2" fill="#ffffff" opacity="0.75"/>
+  <circle cx="1400" cy="100" r="0.9" fill="#ffccff" opacity="0.7"/>
+  <circle cx="1550" cy="130" r="1" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Core region stars (brighter) -->
+  <circle cx="700" cy="350" r="1.5" fill="#ffffff" opacity="0.95" filter="url(#starGlow)"/>
+  <circle cx="800" cy="330" r="1.3" fill="#ffffff" opacity="0.9"/>
+  <circle cx="900" cy="360" r="1.4" fill="#ffeeaa" opacity="0.85"/>
+  <circle cx="750" cy="420" r="1.2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="850" cy="400" r="1.5" fill="#ffffff" opacity="0.95"/>
+  <circle cx="950" cy="430" r="1.3" fill="#ffeeaa" opacity="0.88"/>
+  <circle cx="650" cy="380" r="1.1" fill="#ffffff" opacity="0.87"/>
+  <circle cx="1000" cy="350" r="1.4" fill="#ffffff" opacity="0.92"/>
+  
+  <!-- Lower region stars -->
+  <circle cx="80" cy="850" r="1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="200" cy="880" r="0.9" fill="#ccddff" opacity="0.8"/>
+  <circle cx="350" cy="920" r="1.1" fill="#ffffff" opacity="0.85"/>
+  <circle cx="500" cy="870" r="0.8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="650" cy="900" r="1" fill="#ffccff" opacity="0.7"/>
+  <circle cx="800" cy="920" r="0.9" fill="#ffffff" opacity="0.85"/>
+  <circle cx="950" cy="880" r="1.2" fill="#ccddff" opacity="0.8"/>
+  <circle cx="1100" cy="910" r="0.8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="1250" cy="870" r="1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="1400" cy="900" r="0.9" fill="#ffccff" opacity="0.75"/>
+  <circle cx="1550" cy="850" r="1.1" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Edge region scattered stars -->
+  <circle cx="50" cy="300" r="1" fill="#ffffff" opacity="0.6"/>
+  <circle cx="120" cy="500" r="0.8" fill="#ffffff" opacity="0.7"/>
+  <circle cx="1550" cy="200" r="0.9" fill="#ffffff" opacity="0.65"/>
+  <circle cx="1480" cy="650" r="1" fill="#ffffff" opacity="0.7"/>
+  <circle cx="1600" cy="750" r="0.8" fill="#ffffff" opacity="0.6"/>
+  <circle cx="30" cy="700" r="0.9" fill="#ffffff" opacity="0.65"/>
+  <circle cx="150" cy="300" r="1.1" fill="#ccddff" opacity="0.7"/>
+  <circle cx="1450" cy="400" r="1" fill="#ffccff" opacity="0.65"/>
+  
+  <!-- Additional faint stars scattered -->
+  <circle cx="400" cy="200" r="0.7" fill="#ffffff" opacity="0.5"/>
+  <circle cx="600" cy="150" r="0.6" fill="#ffffff" opacity="0.55"/>
+  <circle cx="1000" cy="180" r="0.8" fill="#ffffff" opacity="0.5"/>
+  <circle cx="1300" cy="300" r="0.7" fill="#ffffff" opacity="0.55"/>
+  <circle cx="500" cy="700" r="0.6" fill="#ffffff" opacity="0.5"/>
+  <circle cx="1100" cy="750" r="0.7" fill="#ffffff" opacity="0.55"/>
+  <circle cx="300" cy="600" r="0.8" fill="#ffffff" opacity="0.5"/>
+  <circle cx="1400" cy="600" r="0.6" fill="#ffffff" opacity="0.55"/>
+</svg>

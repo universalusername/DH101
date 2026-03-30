@@ -1,6 +1,8 @@
 // Load manifest, build menu, and render markdown files from repo
 async function loadManifest() {
-  const res = await fetch('manifest.json');
+  const url = new URL('manifest.json', location.href);
+  url.searchParams.set('_t', Date.now().toString());
+  const res = await fetch(url.href, { cache: 'no-store' });
   return res.json();
 }
 
@@ -40,10 +42,19 @@ function normalizeEntry(entry) {
 
 async function loadMarkdown(path) {
   try {
+    // Check if loading the home/README page
+    const isHomePage = path.toLowerCase().endsWith('readme.md');
+    if (isHomePage) {
+      document.body.classList.add('home-view');
+    } else {
+      document.body.classList.remove('home-view');
+    }
+    
     // Resolve the markdown path relative to the site index so browsers
     // produce a proper absolute URL (handles spaces and ../ segments).
-    const mdUrl = new URL(path, location.href).href;
-    const res = await fetch(mdUrl);
+    const mdUrl = new URL(path, location.href);
+    mdUrl.searchParams.set('_t', Date.now().toString());
+    const res = await fetch(mdUrl.href, { cache: 'no-store' });
     if (!res.ok) throw new Error('Not found: ' + path);
     let text = await res.text();
     // compute base directory for the markdown file so relative links/images resolve
@@ -90,17 +101,40 @@ async function loadMarkdown(path) {
 function loadAsset(path) {
   const ext = path.split('.').pop().toLowerCase();
   if (['png','jpg','jpeg','gif','svg','webp'].includes(ext)) {
-    setContent('<div class="asset-view"><img src="' + encodeURI(path) + '" alt="" /></div>');
+    const assetUrl = new URL(path, location.href);
+    assetUrl.searchParams.set('_t', Date.now().toString());
+    setContent('<div class="asset-view"><img src="' + assetUrl.href + '" alt="" /></div>');
     return;
   }
   // fallback: try to fetch and display as text
-  fetch(encodeURI(path)).then(r => r.text()).then(txt => setContent('<pre>' + txt.replace(/</g,'&lt;') + '</pre>'))
+  const assetUrl = new URL(path, location.href);
+  assetUrl.searchParams.set('_t', Date.now().toString());
+  fetch(assetUrl.href, { cache: 'no-store' }).then(r => r.text()).then(txt => setContent('<pre>' + txt.replace(/</g,'&lt;') + '</pre>'))
     .catch(e => setContent('<p>Error loading asset: ' + e.message + '</p>'));
 }
 
 function buildMenu(manifest) {
   const ul = document.querySelector('#menu ul');
   Object.keys(manifest).forEach(folder => {
+    const files = manifest[folder] || [];
+    
+    // Special handling for single-file folders: load directly
+    if (files.length === 1) {
+      const entry = normalizeEntry(files[0]);
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#';
+      a.textContent = folder;
+      a.dataset.path = entry.path;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadMarkdown(entry.path);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+      return;
+    }
+    
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = '#';
@@ -121,17 +155,25 @@ function showFolderPage(manifest, folder) {
   const entries = files.map(normalizeEntry)
     .filter(item => item.path && item.path.toLowerCase().endsWith('.md'));
 
-  if (folderName === 'makes') {
+  if (folderName === 'makes' || folderName === 'reflections' || folderName === 'relfections') {
     if (entries.length === 0) {
       setContent('<p>No markdown pages listed for this folder.</p>');
       return;
     }
 
-    const planetTypes = ['oceanic', 'gas-giant', 'lava', 'ringed', 'crystal', 'forest'];
+    const isMakes = folderName === 'makes';
+    const iconTypes = isMakes
+      ? ['oceanic', 'gas-giant', 'lava', 'ringed', 'crystal', 'forest']
+      : ['black-hole', 'astronaut', 'rocket', 'rover', 'star', 'comet'];
     const cards = entries.map((item, index) => {
-      const planetType = planetTypes[index % planetTypes.length];
+      const iconType = iconTypes[index % iconTypes.length];
+      const iconMarkup = isMakes
+        ? '<span class="planet-core planet-core--planet" data-planet="' + iconType + '" aria-hidden="true"></span>'
+        : '<span class="planet-core planet-core--space-image" aria-hidden="true">' +
+            '<img class="space-icon-image" src="icons/' + encodeURIComponent(iconType) + '.svg" alt="" loading="lazy" decoding="async" />' +
+          '</span>';
       return '<button class="planet-stop" data-path="' + escapeHtml(item.path) + '" style="--i:' + index + '">' +
-        '<span class="planet-core" data-planet="' + planetType + '" aria-hidden="true"></span>' +
+        iconMarkup +
         '<span class="planet-info">' +
           '<span class="week-card-title">' + escapeHtml(item.label) + '</span>' +
           '<span class="week-card-desc">' + escapeHtml(item.description || 'Add description in manifest.json') + '</span>' +
@@ -141,52 +183,6 @@ function showFolderPage(manifest, folder) {
 
     setContent('<section class="weeks-orbit">' + cards + '</section>');
     document.querySelectorAll('.planet-stop').forEach(btn => {
-      btn.addEventListener('click', () => loadMarkdown(btn.dataset.path));
-    });
-    return;
-  }
-
-  if (folderName === 'reflections' || folderName === 'relfections') {
-    if (entries.length === 0) {
-      setContent('<p>No markdown pages listed for this folder.</p>');
-      return;
-    }
-
-    const stopPlan = [
-      { name: 'Sun', type: 'sun' },
-      { name: 'Mercury', type: 'mercury' },
-      { name: 'Venus', type: 'venus' },
-      { name: 'Earth', type: 'earth' },
-      { name: "Earth's Moon", type: 'moon' },
-      { name: 'Mars', type: 'mars' },
-      { name: 'Asteroid Belt', type: 'asteroid-belt' },
-      { name: 'Jupiter', type: 'jupiter' },
-      { name: 'Saturn', type: 'saturn' },
-      { name: 'Uranus', type: 'uranus' },
-      { name: 'Neptune', type: 'neptune' },
-      { name: 'Pluto', type: 'pluto' },
-      { name: 'Empty Space', type: 'empty-space' }
-    ];
-
-    const cards = entries.map((item, index) => {
-      const stop = stopPlan[index] || {
-        name: 'Deep Space',
-        type: 'empty-space'
-      };
-      const weekLabel = item.label || ('Week ' + (index + 1));
-      const subtitle = item.description || 'Add description in manifest.json';
-
-      return '<button class="solar-stop-card" data-path="' + escapeHtml(item.path) + '">' +
-        '<span class="solar-icon" data-stop="' + stop.type + '" aria-hidden="true"></span>' +
-        '<span class="solar-copy">' +
-          '<span class="solar-title">' + escapeHtml(weekLabel) + '</span>' +
-          '<span class="solar-desc">' + escapeHtml(subtitle) + '</span>' +
-        '</span>' +
-      '</button>';
-    }).join('');
-
-    setContent('<section class="solar-journey-map">' + cards + '</section>');
-    document.querySelectorAll('.solar-stop-card').forEach(btn => {
       btn.addEventListener('click', () => loadMarkdown(btn.dataset.path));
     });
     return;
@@ -223,9 +219,8 @@ function showFolderPage(manifest, folder) {
 document.addEventListener('DOMContentLoaded', async () => {
   const manifest = await loadManifest();
   buildMenu(manifest);
-  // Home link (README)
-  document.getElementById('home-link').addEventListener('click', (e) => {
-    e.preventDefault();
+  // Home header (README)
+  document.getElementById('home-header').addEventListener('click', () => {
     loadMarkdown('../README.md');
   });
   // Initially load README

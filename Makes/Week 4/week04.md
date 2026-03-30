@@ -25,7 +25,8 @@ A side by side comparison of the AI ratatouille recipe and the much better looki
     ```markdown 
     *“AI can guide, but it can’t recreate the taste of grandma’s love.”*
 
-<img src="week04.png" alt="Description of the image">
+<img src="week04.png" alt="AI generated comic depicting a man struggling to decide what to have for dinner. AI helps him choose, but ultimately, he is reminded that AI can't compare to his grandmother's cooking.">
+AI generated comic depicting a man struggling to decide what to have for dinner. AI helps him choose, but ultimately, he is reminded that AI can't compare to his grandmother's cooking.
 
 ## Process Notes
 How did you make this?
