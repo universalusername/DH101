@@ -137,6 +137,6 @@ Yes, absolutely. It feels like searching for that perfect response…but what is
 
 ## Attribution & AI Use
 - Tools used: Character.ai
-- AI prompts (summary): An oblivious, clumsy, and warm-hearted knight
+- AI prompts (summary): Roleplay as an oblivious, clumsy, and warm-hearted knight character
 - What AI generated: Responses in a roleplay format.
 - What you changed or decided: Descriptions of personality, behaviour, flaws, message/response examples, and short backstory.
