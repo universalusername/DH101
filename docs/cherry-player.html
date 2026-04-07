@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cherry</title>
+    <script src="https://cdn.jsdelivr.net/npm/inkjs/dist/ink.js"></script>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #09111f;
+        --panel: rgba(12, 20, 38, 0.94);
+        --panel-edge: rgba(147, 197, 253, 0.18);
+        --text: #e6eefc;
+        --muted: #a4b4d3;
+        --accent: #7dd3fc;
+        --accent-strong: #38bdf8;
+        --button-bg: rgba(125, 211, 252, 0.12);
+        --button-border: rgba(125, 211, 252, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background:
+          radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 38%),
+          radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body {
+        padding: 18px;
+      }
+
+      .shell {
+        max-width: 920px;
+        margin: 0 auto;
+        min-height: calc(100vh - 36px);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 14px;
+      }
+
+      .header,
+      .panel,
+      .footer {
+        background: var(--panel);
+        border: 1px solid var(--panel-edge);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(12px);
+      }
+
+      .header {
+        padding: 18px 20px;
+        border-radius: 18px;
+      }
+
+      .kicker {
+        margin: 0 0 6px;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 0.98rem;
+        line-height: 1.5;
+      }
+
+      .panel {
+        border-radius: 24px;
+        padding: 22px;
+        overflow: auto;
+      }
+
+      #story {
+        display: grid;
+        gap: 1rem;
+      }
+
+      #story p {
+        margin: 0;
+        line-height: 1.65;
+        font-size: 1.03rem;
+      }
+
+      #choices {
+        display: grid;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      button {
+        appearance: none;
+        border: 1px solid var(--button-border);
+        background: linear-gradient(180deg, rgba(125, 211, 252, 0.16), rgba(125, 211, 252, 0.08));
+        color: var(--text);
+        border-radius: 14px;
+        padding: 14px 16px;
+        text-align: left;
+        font: inherit;
+        cursor: pointer;
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      }
+
+      button:hover,
+      button:focus-visible {
+        transform: translateY(-1px);
+        border-color: rgba(125, 211, 252, 0.65);
+        background: linear-gradient(180deg, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.1));
+        outline: none;
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .footer a {
+        color: var(--accent);
+      }
+
+      .status {
+        min-height: 1.2em;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 12px;
+        }
+
+        .shell {
+          min-height: calc(100vh - 24px);
+        }
+
+        .panel {
+          padding: 18px 16px;
+        }
+
+        .footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="header">
+        <p class="kicker">Interactive fiction</p>
+        <h1>Cherry</h1>
+        <p class="subtitle">A playable Inky story about your first day moderating content in a future where every choice is logged.</p>
+      </header>
+
+      <main class="panel" aria-live="polite">
+        <div id="story"></div>
+        <div id="choices" aria-label="Story choices"></div>
+      </main>
+
+      <footer class="footer">
+        <div class="status" id="status">Loading story...</div>
+        <button id="restart" type="button">Restart</button>
+      </footer>
+    </div>
+
+    <script>
+      const storyEl = document.getElementById('story');
+      const choicesEl = document.getElementById('choices');
+      const statusEl = document.getElementById('status');
+      const restartButton = document.getElementById('restart');
+      let story = null;
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function setStatus(message) {
+        statusEl.textContent = message;
+      }
+
+      function renderStoryText() {
+        const chunks = [];
+        while (story.canContinue) {
+          const line = story.Continue().trim();
+          if (line) chunks.push('<p>' + escapeHtml(line).replace(/\n/g, '<br />') + '</p>');
+        }
+        storyEl.innerHTML += chunks.join('');
+      }
+
+      function renderChoices() {
+        choicesEl.innerHTML = '';
+
+        if (!story) {
+          return;
+        }
+
+        if (!story.canContinue && story.currentChoices.length === 0) {
+          setStatus('End of story.');
+          const restartHint = document.createElement('p');
+          restartHint.textContent = 'The story has finished. Use Restart to play again.';
+          storyEl.appendChild(restartHint);
+          return;
+        }
+
+        story.currentChoices.forEach((choice, index) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = choice.text;
+          button.addEventListener('click', () => {
+            story.ChooseChoiceIndex(index);
+            updateView();
+          });
+          choicesEl.appendChild(button);
+        });
+      }
+
+      function updateView() {
+        renderStoryText();
+        renderChoices();
+        if (story && story.currentChoices.length > 0) {
+          setStatus('Choose a response.');
+        }
+      }
+
+      function getRawCandidates() {
+        const candidates = [
+          '../Makes/Week 10/Cherry.ink.json',
+          './Cherry.ink.json'
+        ];
+
+        if (/\.github\.io$/i.test(location.hostname)) {
+          const currentParts = location.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
+          const repo = currentParts[0];
+          const owner = location.hostname.split('.')[0];
+          if (owner && repo) {
+            const repoRelativePath = ['Makes', 'Week 10', 'Cherry.ink.json']
+              .map(encodeURIComponent)
+              .join('/');
+            candidates.push('https://raw.githubusercontent.com/' + owner + '/' + repo + '/main/' + repoRelativePath);
+            candidates.push('https://raw.githubusercontent.com/' + owner + '/' + repo + '/master/' + repoRelativePath);
+          }
+        }
+
+        return candidates;
+      }
+
+      async function loadStoryData() {
+        let lastError = null;
+        for (const path of getRawCandidates()) {
+          try {
+            const response = await fetch(path, { cache: 'no-store' });
+            if (!response.ok) {
+              lastError = new Error('Not found: ' + path);
+              continue;
+            }
+            return await response.json();
+          } catch (error) {
+            lastError = error;
+          }
+        }
+
+        throw lastError || new Error('Unable to load Cherry.ink.json');
+      }
+
+      async function startGame() {
+        try {
+          setStatus('Loading story...');
+          storyEl.innerHTML = '';
+          choicesEl.innerHTML = '';
+          const storyJson = await loadStoryData();
+          story = new inkjs.Story(storyJson);
+          updateView();
+        } catch (error) {
+          storyEl.innerHTML = '<p>Unable to load the game.</p>';
+          choicesEl.innerHTML = '';
+          setStatus(error.message);
+        }
+      }
+
+      restartButton.addEventListener('click', startGame);
+      startGame();
+    </script>
+  </body>
+</html>
