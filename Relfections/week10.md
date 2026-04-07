@@ -1,5 +1,5 @@
-> **Markdown help:** See [markdown-guide.md](../pages/markdown-guide.md) for formatting tips and a reflection template.
-
 # Week 10 Reflection
 
 Reflect 10: How does AI change our relationship to play, rules, and narrative?
+
+AI runs on rules, as they are all it 'knows.' In that sense, AI in play limits what we can do...until we figure out how to bend those rules to our benefit. Once you understand AI as a sorting algorithm, an impersonator of a personality, not an originator, you can truly do whatever you want and play AI like a fiddle. In a narrative, AI adds another dimension to interactivity. Being able to provide unique responses and options to your individualized input makes the story something entirely new each time. Overall, AI in this sense can muddy the waters will subpar content (pumping out low quality games and stories), but when used as a tool alongside a dedicated human creator, AI can take rules, games, and play to the next level.
