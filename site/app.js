@@ -42,34 +42,50 @@ function extractWeekLabel(path) {
   return String(path).replace('../', '');
 }
 
+function normalizePath(path) {
+  const p = String(path || '').trim().replace(/\\/g, '/');
+  if (!p) return p;
+  if (/^(https?:)?\/\//i.test(p)) return p;
+  if (p.startsWith('/')) return '.' + p;
+
+  const withoutDotPrefix = p.replace(/^\.\//, '');
+  const rootLevelPattern = /^(README\.md|Pages\/|Makes\/|Relfections\/|Reflections\/|AI-Log\/)/i;
+  if (rootLevelPattern.test(withoutDotPrefix)) {
+    return '../' + withoutDotPrefix;
+  }
+
+  return p;
+}
+
 function normalizeEntry(entry) {
   if (typeof entry === 'string') {
     return {
-      path: entry,
+      path: normalizePath(entry),
       label: extractWeekLabel(entry),
       description: ''
     };
   }
   return {
-    path: entry.path,
+    path: normalizePath(entry.path),
     label: entry.label || extractWeekLabel(entry.path || ''),
     description: entry.description || ''
   };
 }
 
 function buildPathCandidates(path) {
+  const normalized = normalizePath(path);
   const candidates = [];
   const add = (p) => {
     if (!p || candidates.includes(p)) return;
     candidates.push(p);
   };
 
-  add(path);
-  add(String(path).replace(/^\.\//, ''));
-  if (String(path).startsWith('../')) {
-    add(String(path).replace(/^(\.\.\/)+/, ''));
+  add(normalized);
+  add(String(normalized).replace(/^\.\//, ''));
+  if (String(normalized).startsWith('../')) {
+    add(String(normalized).replace(/^(\.\.\/)+/, ''));
   } else {
-    add('../' + String(path).replace(/^\.\//, ''));
+    add('../' + String(normalized).replace(/^\.\//, ''));
   }
   return candidates;
 }
@@ -126,8 +142,9 @@ async function fetchFirstAvailable(path) {
 
 async function loadMarkdown(path) {
   try {
+    const normalizedPath = normalizePath(path);
     // Check if loading the home/README page
-    const isHomePage = path.toLowerCase().endsWith('readme.md');
+    const isHomePage = normalizedPath.toLowerCase().endsWith('readme.md');
     if (isHomePage) {
       document.body.classList.add('home-view');
     } else {
@@ -136,7 +153,7 @@ async function loadMarkdown(path) {
     
     // Resolve the markdown path relative to the site index so browsers
     // produce a proper absolute URL (handles spaces and ../ segments).
-    const loaded = await fetchFirstAvailable(path);
+    const loaded = await fetchFirstAvailable(normalizedPath);
     let text = loaded.text;
     // compute base directory from the successful markdown URL so relative links/images resolve
     const baseUrl = new URL('.', loaded.href).href;
