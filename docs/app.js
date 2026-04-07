@@ -10,6 +10,23 @@ function setContent(html) {
   document.getElementById('content').innerHTML = html;
 }
 
+function setMenuOpen(isOpen) {
+  document.body.classList.toggle('menu-open', Boolean(isOpen));
+  const toggle = document.getElementById('menu-toggle');
+  if (toggle) {
+    toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  }
+}
+
+function closeMenu() {
+  setMenuOpen(false);
+}
+
+function toggleMenu() {
+  const isOpen = document.body.classList.contains('menu-open');
+  setMenuOpen(!isOpen);
+}
+
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -203,6 +220,7 @@ function buildMenu(manifest) {
       a.addEventListener('click', (e) => {
         e.preventDefault();
         loadMarkdown(entry.path);
+        closeMenu();
       });
       li.appendChild(a);
       ul.appendChild(li);
@@ -217,6 +235,7 @@ function buildMenu(manifest) {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       showFolderPage(manifest, folder);
+      closeMenu();
     });
     li.appendChild(a);
     ul.appendChild(li);
@@ -257,7 +276,10 @@ function showFolderPage(manifest, folder) {
 
     setContent('<section class="weeks-orbit">' + cards + '</section>');
     document.querySelectorAll('.planet-stop').forEach(btn => {
-      btn.addEventListener('click', () => loadMarkdown(btn.dataset.path));
+      btn.addEventListener('click', () => {
+        loadMarkdown(btn.dataset.path);
+        closeMenu();
+      });
     });
     return;
   }
@@ -276,6 +298,7 @@ function showFolderPage(manifest, folder) {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       loadMarkdown(item.path);
+      closeMenu();
     });
     li.appendChild(a);
     if (item.description) {
@@ -293,9 +316,17 @@ function showFolderPage(manifest, folder) {
 document.addEventListener('DOMContentLoaded', async () => {
   const manifest = await loadManifest();
   buildMenu(manifest);
+  setMenuOpen(false);
+  const menuToggle = document.getElementById('menu-toggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      toggleMenu();
+    });
+  }
   // Home header (README)
   document.getElementById('home-header').addEventListener('click', () => {
     loadMarkdown('./README.md');
+    closeMenu();
   });
   // Initially load README
   loadMarkdown('./README.md');
