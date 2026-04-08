@@ -47,13 +47,6 @@ function normalizePath(path) {
   if (!p) return p;
   if (/^(https?:)?\/\//i.test(p)) return p;
   if (p.startsWith('/')) return '.' + p;
-
-  const withoutDotPrefix = p.replace(/^\.\//, '');
-  const rootLevelPattern = /^(README\.md|Pages\/|Makes\/|Relfections\/|Reflections\/|AI-Log\/)/i;
-  if (rootLevelPattern.test(withoutDotPrefix)) {
-    return '../' + withoutDotPrefix;
-  }
-
   return p;
 }
 
