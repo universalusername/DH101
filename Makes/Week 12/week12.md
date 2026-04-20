@@ -1,8 +1,7 @@
 # Week 12 – AI & Ecology
 
 ## The Artifact
-Describe or embed your artifact here.
-Include images, links, or media as appropriate.
+<div class="flourish-embed flourish-chart" data-src="visualisation/28578594"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/28578594/thumbnail" width="100%" alt="visualization" /></noscript></div>
 
 ## Process Notes
 How did you make this?
