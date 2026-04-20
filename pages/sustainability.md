@@ -21,7 +21,7 @@ While improvements can be made through renewable energy sources and increased ef
     - 20.82kg annually
 ### Change
     - I'm willing to reduce my use of AI as a search engine, and be more mindful of my queries. If it is not necessary to use AI, I'd much rather do the work to figure things out on my own.
-   - I can't change how I use AI for the sake of my Digital Humanities class, since it requires its use.
+    - I can't change how I use AI for the sake of my Digital Humanities class, since it requires its use.
 
 ## Systemic vs. Individual:
     Individuals can...
