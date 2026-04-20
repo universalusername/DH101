@@ -1,7 +1,7 @@
 # Sustainability & Ethics
 
 ## My Research
-Whilie initial AI trainings produce hundreds of tons of CO2, the real danger comes from daily use; every day, ChatGPT alone recieves 2.5 billion queries-- this generates 21 times the carbon emissions than the initial training!
+While initial AI trainings produce hundreds of tons of CO2, the real danger comes from daily use; every day, ChatGPT alone recieves 2.5 billion queries-- this generates 21 times the carbon emissions than the initial training!
 
 Comparing these emissions to everyday carbon emitters (cars, households, diet) reveals that AI's emissions are not isolated, rather, a part of a flawed global system that demands more extraction, more consumption, more human exploitation, and more waste.
 
