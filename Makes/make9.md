@@ -2,8 +2,8 @@
 
 ## The Artifact
 
-<iframe
-	src="cherry-player.html"
+	<iframe
+		src="../docs/cherry-player.html"
 	title="Playable version of New Hire"
 	width="100%"
 	height="780"
@@ -11,7 +11,7 @@
 	style="border: 0; border-radius: 16px; background: #0b1020;"
 ></iframe>
 
-<p>Play New Hire directly here. If the embedded game does not load, open <a href="cherry-player.html">the player page</a>.</p>
+<p>Play New Hire directly here. If the embedded game does not load, open <a href="../docs/cherry-player.html">the player page</a>.</p>
 
 
 ## Design Statement

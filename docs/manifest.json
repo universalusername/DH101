@@ -13,64 +13,24 @@
   ],
   "Makes": [
     {
-      "path": "./Makes/Week 1/week01.md",
-      "label": "Week 1",
-      "description": "Reverse Engineering"
+      "path": "./Makes/make4.md",
+      "label": "Make 4",
+      "description": ""
     },
     {
-      "path": "./Makes/Week 3/week03.md",
-      "label": "Week 3",
-      "description": "Add description here"
+      "path": "./Makes/make 6.md",
+      "label": "Make 6",
+      "description": ""
     },
     {
-      "path": "./Makes/Week 4/week04.md",
-      "label": "Week 4",
-      "description": "Add description here"
+      "path": "./Makes/make9.md",
+      "label": "Make 9",
+      "description": ""
     },
     {
-      "path": "./Makes/Week 5/week05.md",
-      "label": "Week 5",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 6/week06.md",
-      "label": "Week 6",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 7/week07.md",
-      "label": "Week 7",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 8/week08.md",
-      "label": "Week 8",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 9/week09.md",
-      "label": "Week 9",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 10/week10.md",
-      "label": "Week 10",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 11/week11.md",
-      "label": "Week 11",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 12/week12.md",
-      "label": "Week 12",
-      "description": "Add description here"
-    },
-    {
-      "path": "./Makes/Week 13/week13.md",
-      "label": "Week 13",
-      "description": "Add description here"
+      "path": "./Makes/make12.md",
+      "label": "Make 12",
+      "description": ""
     }
   ],
   "Relfections": [

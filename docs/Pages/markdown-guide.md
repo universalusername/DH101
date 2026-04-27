@@ -45,7 +45,7 @@ Unordered, ordered, and task lists.
 Use relative paths inside the repo.
 
 ```markdown
-[Week 01 reflection](../reflections/week01.md)
+[Week 01 reflection](../../Relfections/week01.md)
 [Outside resource](https://example.com)
 ![Alt text for image](../assets/images/example.png)
 ```

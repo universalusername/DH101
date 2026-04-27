@@ -21,6 +21,6 @@ The standalone still images elicit far less emotion compared to when they are st
 
 ### Surveillance State
 
-![GIF with a surviellance theme, depicting eyes and the statement 'Smile, you are on camera.'](week05.gif)
+![GIF with a surviellance theme, depicting eyes and the statement 'Smile, you are on camera.'](make4.gif)
 
 GIF with a surviellance theme, depicting eyes and the statement 'Smile, you are on camera.

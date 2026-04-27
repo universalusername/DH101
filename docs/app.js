@@ -36,6 +36,15 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+function placeholderDataUrl(label) {
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360">' +
+    '<rect width="100%" height="100%" fill="%23f3f4f6"/>' +
+    '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui,Segoe UI,Roboto,Arial,sans-serif" font-size="28" fill="%23666">' +
+    escapeHtml(String(label)).replace(/&/g,'%26') +
+    '</text></svg>';
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+}
+
 function extractWeekLabel(path) {
   const m = String(path).match(/week\s*(\d+)/i) || String(path).match(/week(\d+)/i);
   if (m) return 'Week ' + Number(m[1]);
@@ -249,36 +258,43 @@ function showFolderPage(manifest, folder) {
   const entries = files.map(normalizeEntry)
     .filter(item => item.path && item.path.toLowerCase().endsWith('.md'));
 
-  if (folderName === 'makes' || folderName === 'reflections' || folderName === 'relfections') {
+  if (folderName === 'makes') {
     if (entries.length === 0) {
       setContent('<p>No markdown pages listed for this folder.</p>');
       return;
     }
 
-    const isMakes = folderName === 'makes';
-    const iconTypes = isMakes
-      ? ['oceanic', 'gas-giant', 'lava', 'ringed', 'crystal', 'forest']
-      : ['black-hole', 'astronaut', 'rocket', 'rover', 'star', 'comet'];
-    const cards = entries.map((item, index) => {
-      const iconType = iconTypes[index % iconTypes.length];
-      const iconMarkup = isMakes
-        ? '<span class="planet-core planet-core--planet" data-planet="' + iconType + '" aria-hidden="true"></span>'
-        : '<span class="planet-core planet-core--space-image" aria-hidden="true">' +
-            '<img class="space-icon-image" src="icons/' + encodeURIComponent(iconType) + '.svg" alt="" loading="lazy" decoding="async" />' +
-          '</span>';
-      return '<button class="planet-stop" data-path="' + escapeHtml(item.path) + '" style="--i:' + index + '">' +
-        iconMarkup +
-        '<span class="planet-info">' +
-          '<span class="week-card-title">' + escapeHtml(item.label) + '</span>' +
-          '<span class="week-card-desc">' + escapeHtml(item.description || 'Add description in manifest.json') + '</span>' +
-        '</span>' +
-      '</button>';
+    // Inject lightweight styles for the makes grid (only once)
+    if (!document.getElementById('makes-grid-styles')) {
+      const s = document.createElement('style');
+      s.id = 'makes-grid-styles';
+      s.textContent = `
+        .makes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:18px}
+        .make-card{display:block;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.08);background:var(--card-bg,#fff);color:inherit;text-decoration:none}
+        .make-thumb{height:160px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center}
+        .make-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+        .make-info{padding:12px}
+        .make-info h3{margin:0 0 8px;font-size:1.05rem}
+        .make-info p{margin:0;color:var(--muted,#666);font-size:.95rem}
+      `;
+      document.head.appendChild(s);
+    }
+
+    const cards = entries.map(item => {
+      const thumbCandidate = String(item.path).replace(/\.md$/i, '.gif');
+      const thumbUrl = new URL(thumbCandidate, location.href).href;
+      const safeLabel = (escapeHtml(item.label) || '').replace(/'/g, "\\'");
+      return '<a class="make-card" href="#" data-path="' + escapeHtml(item.path) + '">' +
+        '<div class="make-thumb"><img src="' + escapeHtml(thumbUrl) + '" alt="' + escapeHtml(item.label) + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=placeholderDataUrl(\'' + safeLabel + '\')" /></div>' +
+        '<div class="make-info"><h3>' + escapeHtml(item.label) + '</h3><p>' + escapeHtml(item.description || '') + '</p></div>' +
+      '</a>';
     }).join('');
 
-    setContent('<section class="weeks-orbit">' + cards + '</section>');
-    document.querySelectorAll('.planet-stop').forEach(btn => {
-      btn.addEventListener('click', () => {
-        loadMarkdown(btn.dataset.path);
+    setContent('<section class="makes-grid">' + cards + '</section>');
+    document.querySelectorAll('.make-card').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadMarkdown(a.dataset.path);
         closeMenu();
       });
     });
