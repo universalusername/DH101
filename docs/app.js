@@ -269,16 +269,16 @@ function showFolderPage(manifest, folder) {
       const s = document.createElement('style');
       s.id = 'makes-grid-styles';
       s.textContent = `
-        .makes-grid{display:flex;flex-wrap:wrap;gap:40px;padding:40px;align-content:flex-start;justify-content:center}
-        .make-card{display:block;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.08);background:var(--card-bg,#fff);color:inherit;text-decoration:none;transition:transform 0.2s ease;width:220px}
-        .make-card:hover{transform:scale(1.02)}
-        .make-thumb{height:160px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center}
+        .makes-grid{display:flex;flex-wrap:wrap;gap:24px;padding:24px;align-content:flex-start;justify-content:center}
+        .make-card{display:block;overflow:hidden;border:1px solid #000;background:#fff;color:#111;text-decoration:none;transition:outline 0.2s ease;width:220px}
+        .make-card:hover{outline:2px solid #000}
+        .make-thumb{height:160px;overflow:hidden;background:#f2f2f2;display:flex;align-items:center;justify-content:center}
         .make-thumb img{width:100%;height:100%;object-fit:cover;display:block}
         .make-info{padding:12px}
-        .make-info h3{margin:0 0 8px;font-size:1.05rem}
-        .make-info p{margin:0;color:var(--muted,#666);font-size:.95rem}
-        .make4-card{cursor:pointer;background:transparent;border:none;padding:0;width:240px;height:auto;transition:transform 0.2s ease;display:flex;flex-direction:column;align-items:center;justify-content:center}
-        .make4-card:hover{transform:scale(1.06) translateY(-8px)}
+        .make-info h3{margin:0 0 8px;font-size:1.05rem;color:#111}
+        .make-info p{margin:0;color:#666;font-size:.95rem}
+        .make4-card{cursor:pointer;background:#fff;border:1px solid #000;padding:0;width:240px;height:auto;transition:outline 0.2s ease;display:flex;flex-direction:column;align-items:center;justify-content:center}
+        .make4-card:hover{outline:2px solid #000}
         .crt-body{position:relative;width:220px;height:170px;background:linear-gradient(180deg,#EEDDBA 0%,#D1B08A 100%);border-radius:8px;padding:10px;border:3px solid #5a3b2a;box-shadow:0 8px 18px rgba(0,0,0,0.25);display:flex;flex-direction:column;align-items:center}
         .crt-antenna{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;z-index:6}
         .crt-antenna-left{position:absolute;width:28px;height:3px;background:#2a2a2a;top:-6px;left:-16px;transform:rotate(-58deg);transform-origin:right center;border-radius:1.5px}
@@ -297,6 +297,9 @@ function showFolderPage(manifest, folder) {
         .crt-leg-right{position:absolute;bottom:-2px;right:26%;width:6px;height:34px;background:linear-gradient(180deg,#2a2a2a,#111);border-radius:2px;transform:skewX(-6deg)}
         .crt-label{display:none}
         .make4-info{display:none}
+        .make6-card{display:block;overflow:hidden;border:1px solid #000;background:#fff;color:#111;text-decoration:none;transition:outline 0.2s ease;width:240px}
+        .make6-card:hover{outline:2px solid #000}
+        .make6-card .sketchfab-embed-wrapper{background:#f2f2f2}
       `;
       document.head.appendChild(s);
     }
@@ -387,11 +390,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       toggleMenu();
     });
   }
-  // Home header (README)
+  // Home header resets the content area
   document.getElementById('home-header').addEventListener('click', () => {
-    loadMarkdown('./README.md');
+    setContent('');
     closeMenu();
   });
-  // Initially load README
-  loadMarkdown('./README.md');
+  // Start on a blank home state
+  setContent('');
 });
