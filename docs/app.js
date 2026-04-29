@@ -1,4 +1,6 @@
 // Load manifest, build menu, and render markdown files from repo
+let homeMarkup = '';
+
 async function loadManifest() {
   const url = new URL('manifest.json', location.href);
   url.searchParams.set('_t', Date.now().toString());
@@ -8,6 +10,13 @@ async function loadManifest() {
 
 function setContent(html) {
   document.getElementById('content').innerHTML = html;
+}
+
+function showHome() {
+  if (homeMarkup) {
+    setContent(homeMarkup);
+  }
+  closeMenu();
 }
 
 function setMenuOpen(isOpen) {
@@ -96,67 +105,64 @@ function buildGithubRawCandidates(url) {
   if (!/\.github\.io$/i.test(location.hostname)) return [];
 
   const currentParts = location.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
-  const repo = currentParts[0];
-  const owner = location.hostname.split('.')[0];
-  if (!owner || !repo) return [];
+    const htmlRaw = marked.parse(text);
+    const temp = document.createElement('div');
+    temp.innerHTML = htmlRaw;
 
-  const targetParts = decodeURIComponent(url.pathname).replace(/^\/+/, '').split('/').filter(Boolean);
-  if (targetParts.length === 0) return [];
+    // Preload images while still in a detached fragment to avoid DOM
+    // normalization and race conditions. For each image, show a lightweight
+    // placeholder, preload the cache-busted URL, then swap the src on the
+    // original node once loaded.
+    Array.from(temp.querySelectorAll('img')).forEach(img => {
+      try {
+        let src = img.getAttribute('src') || '';
+        src = src.replace(/\\/g, '/');
+        if (/^(https?:)?\/\//i.test(src)) return;
+        if (src.startsWith('/')) src = '.' + src;
 
-  const repoRelativeParts = targetParts[0] === repo ? targetParts.slice(1) : targetParts;
-  if (repoRelativeParts.length === 0) return [];
+        const resolved = new URL(src, baseUrl).href;
+        const sep = resolved.includes('?') ? '&' : '?';
+        const preloadSrc = resolved + sep + '_cb=' + Date.now();
 
-  const repoRelativePath = repoRelativeParts.map(encodeURIComponent).join('/');
-  return [
-    'https://raw.githubusercontent.com/' + owner + '/' + repo + '/main/' + repoRelativePath,
-    'https://raw.githubusercontent.com/' + owner + '/' + repo + '/master/' + repoRelativePath
-  ];
-}
-
-async function fetchFirstAvailable(path) {
-  const pathCandidates = buildPathCandidates(path);
-  const urlCandidates = [];
-
-  pathCandidates.forEach(p => {
-    const u = new URL(p, location.href);
-    u.searchParams.set('_t', Date.now().toString());
-    urlCandidates.push(u.href);
-    buildGithubRawCandidates(u).forEach(raw => {
-      if (!urlCandidates.includes(raw)) urlCandidates.push(raw);
-    });
-  });
-
-  let lastError = null;
-  for (const href of urlCandidates) {
-    try {
-      const res = await fetch(href, { cache: 'no-store' });
-      if (res.ok) {
-        const text = await res.text();
-        return { text, href };
+        // Start loading the actual asset URL (cache-busted) but keep it hidden
+        // until it's fully decoded by the browser to avoid showing a broken
+        // frame. The element is still in the detached fragment; once appended
+        // it will continue loading.
+        img.setAttribute('src', preloadSrc);
+        img.style.visibility = 'hidden';
+      } catch (e) {
+        // ignore per-image errors
       }
-      lastError = new Error('Not found: ' + path);
-    } catch (err) {
-      lastError = err;
-    }
-  }
-  throw lastError || new Error('Not found: ' + path);
-}
+    });
 
-async function loadMarkdown(path) {
-  try {
-    const normalizedPath = normalizePath(path);
-    // Check if loading the home/README page
-    const isHomePage = normalizedPath.toLowerCase().endsWith('readme.md');
-    if (isHomePage) {
-      document.body.classList.add('home-view');
-    } else {
-      document.body.classList.remove('home-view');
+    // Insert into the live content element
+    setContent('');
+    const contentEl = document.getElementById('content');
+    while (temp.firstChild) {
+      contentEl.appendChild(temp.firstChild);
     }
-    
-    // Resolve the markdown path relative to the site index so browsers
-    // produce a proper absolute URL (handles spaces and ../ segments).
-    const loaded = await fetchFirstAvailable(normalizedPath);
-    let text = loaded.text;
+    // After insertion, reveal images that successfully loaded; for any
+    // image that hasn't decoded, attempt a manual reload with a fresh
+    // cache-buster and reveal if successful.
+    setTimeout(() => {
+      Array.from(document.querySelectorAll('#content img')).forEach(img => {
+        try {
+          if (img.naturalWidth > 0) {
+            img.style.visibility = '';
+            return;
+          }
+          const cur = img.getAttribute('src') || img.src || '';
+          const sep = cur.includes('?') ? '&' : '?';
+          const testSrc = cur + sep + '_cbr=' + Date.now();
+          const tester = new Image();
+          tester.onload = () => { try { img.setAttribute('src', testSrc); img.style.visibility = ''; } catch (e) {} };
+          tester.onerror = () => { /* leave hidden */, img.style.visibility = ''; };
+          tester.src = testSrc;
+        } catch (e) {
+          try { img.style.visibility = ''; } catch (_) {}
+        }
+      });
+    }, 250);
     // compute base directory from the successful markdown URL so relative links/images resolve
     const baseUrl = new URL('.', loaded.href).href;
 
@@ -182,18 +188,66 @@ async function loadMarkdown(path) {
     temp.innerHTML = htmlRaw;
     temp.querySelectorAll('img').forEach(img => {
       let src = img.getAttribute('src') || '';
-      // normalize backslashes
       src = src.replace(/\\/g, '/');
-      // leave absolute URLs alone
       if (/^(https?:)?\/\//i.test(src)) return;
       if (src.startsWith('/')) src = '.' + src;
-      // resolve relative path against the markdown file's directory
-      // Use the URL constructor to produce a correct absolute URL
-      // (this handles spaces and ../ segments reliably).
-      const resolved = new URL(src, baseUrl).href;
-      img.src = resolved;
+      // Resolve relative path against the markdown file's directory and
+      // append a timestamp query parameter to avoid cached/truncated responses.
+      const assetUrl = new URL(src, baseUrl);
+      // Some environments may normalize hrefs and drop synthetic params,
+      // so append a cache-busting query string explicitly to force a fresh fetch.
+      const sep = assetUrl.search ? '&' : '?';
+      img.setAttribute('src', assetUrl.href + sep + '_cb=' + Date.now());
     });
-    setContent(temp.innerHTML);
+    // Insert the DOM nodes directly into the content element rather than
+    // serializing `innerHTML`. This preserves any attributes we set on the
+    // elements (for example cache-busting query params on image `src`).
+    setContent('');
+    const contentEl = document.getElementById('content');
+    while (temp.firstChild) {
+      contentEl.appendChild(temp.firstChild);
+    }
+    // Replace inline images with fresh Image() instances that include a
+    // cache-busting query param. Creating and inserting a new Image forces
+    // the browser to fetch the resource again and avoids partial/truncated
+    // responses that some clients may cache.
+    // Stabilize image loading by preloading images and swapping in the
+    // real src after the image fully loads. We keep the original <img>
+    // node (so any anchors or surrounding markup remain) and only update
+    // its `src` once the preload completes. While loading, we show a
+    // placeholder SVG so layout remains stable.
+    Array.from(document.querySelectorAll('#content img')).forEach(orig => {
+      try {
+        const cur = orig.getAttribute('src') || orig.src || '';
+        if (!cur) return;
+        // skip remote images on other origins
+        if (/^(https?:)?\/\//i.test(cur) && !cur.startsWith(location.origin)) return;
+        if (cur.includes('_cb=') || cur.includes('_t=')) return;
+
+        // Show lightweight placeholder while we preload the real image
+        const placeholder = placeholderDataUrl('Loading…');
+        orig.setAttribute('src', placeholder);
+
+        const sep = cur.includes('?') ? '&' : '?';
+        const preloadSrc = cur + sep + '_cb=' + Date.now();
+        const pre = new Image();
+        pre.onload = () => {
+          try {
+            orig.setAttribute('src', preloadSrc);
+          } catch (e) { /* ignore */ }
+        };
+        pre.onerror = () => {
+          // on error, try fetching original URL without params once
+          const fallback = new Image();
+          fallback.onload = () => { try { orig.setAttribute('src', cur); } catch (e) {} };
+          fallback.onerror = () => { /* leave placeholder */ };
+          fallback.src = cur;
+        };
+        pre.src = preloadSrc;
+      } catch (e) {
+        // ignore per-image errors
+      }
+    });
   } catch (err) {
     setContent('<p>Error loading file: ' + err.message + '</p>');
   }
@@ -259,95 +313,33 @@ function showFolderPage(manifest, folder) {
     .filter(item => item.path && item.path.toLowerCase().endsWith('.md'));
 
   if (folderName === 'makes') {
-    if (entries.length === 0) {
-      setContent('<p>No markdown pages listed for this folder.</p>');
-      return;
-    }
+    // Render four links to the Makes subfolders (Make4, Make6, Make9, Make12)
+    const makesFolders = [
+      { path: './Makes/make4.md', label: 'Make 4' },
+      { path: './Makes/make6.md', label: 'Make 6' },
+      { path: './Makes/make9.md', label: 'Make 9' },
+      { path: './Makes/make12.md', label: 'Make 12' }
+    ];
 
-    // Inject lightweight styles for the makes grid (only once)
-    if (!document.getElementById('makes-grid-styles')) {
-      const s = document.createElement('style');
-      s.id = 'makes-grid-styles';
-      s.textContent = `
-        .makes-grid{display:flex;flex-wrap:wrap;gap:24px;padding:24px;align-content:flex-start;justify-content:center}
-        .make-card{display:block;overflow:hidden;border:1px solid #000;background:#fff;color:#111;text-decoration:none;transition:outline 0.2s ease;width:220px}
-        .make-card:hover{outline:2px solid #000}
-        .make-thumb{height:160px;overflow:hidden;background:#f2f2f2;display:flex;align-items:center;justify-content:center}
-        .make-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-        .make-info{padding:12px}
-        .make-info h3{margin:0 0 8px;font-size:1.05rem;color:#111}
-        .make-info p{margin:0;color:#666;font-size:.95rem}
-        .make4-card{cursor:pointer;background:#fff;border:1px solid #000;padding:0;width:240px;height:auto;transition:outline 0.2s ease;display:flex;flex-direction:column;align-items:center;justify-content:center}
-        .make4-card:hover{outline:2px solid #000}
-        .crt-body{position:relative;width:220px;height:170px;background:linear-gradient(180deg,#EEDDBA 0%,#D1B08A 100%);border-radius:8px;padding:10px;border:3px solid #5a3b2a;box-shadow:0 8px 18px rgba(0,0,0,0.25);display:flex;flex-direction:column;align-items:center}
-        .crt-antenna{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;z-index:6}
-        .crt-antenna-left{position:absolute;width:28px;height:3px;background:#2a2a2a;top:-6px;left:-16px;transform:rotate(-58deg);transform-origin:right center;border-radius:1.5px}
-        .crt-antenna-right{position:absolute;width:28px;height:3px;background:#2a2a2a;top:-6px;right:-16px;transform:rotate(58deg);transform-origin:left center;border-radius:1.5px}
-        .crt-screen-frame{position:relative;width:100%;height:62%;background:#4a3526;border-radius:6px;padding:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid #2f1f14}
-        .crt-screen{width:100%;height:100%;background:transparent;border-radius:4px;overflow:hidden;position:relative;box-shadow:inset 0 0 6px rgba(0,0,0,0.12);display:flex;align-items:center;justify-content:center}
-        .sketchfab-embed-wrapper{width:100%;height:100%;display:block;border-radius:4px;overflow:hidden}
-        .sketchfab-embed-wrapper iframe{width:100%;height:100%;border:0;display:block}
-        .crt-screen::before{content:'';position:absolute;top:6%;left:8%;width:48%;height:40%;background:radial-gradient(circle at 25% 25%,rgba(255,255,255,0.25),transparent);pointer-events:none;border-radius:40%;z-index:2}
-        .crt-controls{position:absolute;right:12px;top:52%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px}
-        .crt-knob{width:18px;height:18px;background:radial-gradient(circle at 30% 30%,#FFD27A,#B8861B);border-radius:50%;box-shadow:0 3px 6px rgba(0,0,0,0.35),inset -1px -1px 2px rgba(0,0,0,0.3);position:relative;border:1px solid rgba(0,0,0,0.15)}
-        .crt-knob::before{content:'';position:absolute;width:2px;height:6px;background:#333;top:3px;left:50%;transform:translateX(-50%);border-radius:1px}
-        .crt-stand{position:relative;width:100%;height:36px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center}
-        .crt-shelf{position:absolute;bottom:6px;width:140px;height:10px;background:linear-gradient(180deg,#C9A66F,#A77B45);border-radius:4px;left:50%;transform:translateX(-50%);box-shadow:0 4px 8px rgba(0,0,0,0.2)}
-        .crt-leg-left{position:absolute;bottom:-2px;left:26%;width:6px;height:34px;background:linear-gradient(180deg,#2a2a2a,#111);border-radius:2px;transform:skewX(6deg)}
-        .crt-leg-right{position:absolute;bottom:-2px;right:26%;width:6px;height:34px;background:linear-gradient(180deg,#2a2a2a,#111);border-radius:2px;transform:skewX(-6deg)}
-        .crt-label{display:none}
-        .make4-info{display:none}
-        .make6-card{display:block;overflow:hidden;border:1px solid #000;background:#fff;color:#111;text-decoration:none;transition:outline 0.2s ease;width:240px}
-        .make6-card:hover{outline:2px solid #000}
-        .make6-card .sketchfab-embed-wrapper{background:#f2f2f2}
-      `;
-      document.head.appendChild(s);
-    }
-
-    const cards = entries.map(item => {
-      const rawPath = String(item.path || '');
-      const decodedPath = (function(p){ try { return decodeURIComponent(p); } catch(e){ return p } })(rawPath);
-      const isMake4 = /make(?:%20|\s*)4/i.test(rawPath) || /make\s*4/i.test(decodedPath) || /make\s*4/i.test(String(item.label || ''));
-      const isMake6 = /make(?:%20|\s*)6/i.test(rawPath) || /make\s*6/i.test(decodedPath) || /make\s*6/i.test(String(item.label || ''));
-      const safeLabel = (escapeHtml(item.label) || '').replace(/'/g, "\\'");
-      
-      if (isMake4) {
-        // Make 4: use the Sketchfab embed itself as the clickable icon (no TV wrapper)
-        return '<a class="make4-card" href="#" data-path="' + escapeHtml(item.path) + '">' +
-          '<div class="sketchfab-embed-wrapper">' +
-            '<iframe title="Retro CRT TV" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6bc462b233ce4c78904dfcadf5123e29/embed?autostart=1&camera=0"></iframe>' +
-          '</div>' +
-        '</a>';
-      }
-      if (isMake6) {
-        // Make 6: Sketchfab Earth Globe embed as clickable icon
-        return '<a class="make6-card" href="#" data-path="' + escapeHtml(item.path) + '">' +
-          '<div class="sketchfab-embed-wrapper">' +
-            '<iframe title="Earth Globe - Atlas" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/cd178e25a0e6436380b15fc1539a25f2/embed?autostart=1&camera=0&ui_hint=0"></iframe>' +
-            '<p style="font-size:13px;font-weight:normal;margin:6px;color:#4A4A4A;text-align:center;">' +
-              '<a href="https://sketchfab.com/3d-models/earth-globe-atlas-cd178e25a0e6436380b15fc1539a25f2?utm_medium=embed&utm_campaign=share-popup&utm_content=cd178e25a0e6436380b15fc1539a25f2" target="_blank" rel="nofollow" style="font-weight:bold;color:#1CAAD9;">Earth Globe - Atlas</a> by <a href="https://sketchfab.com/rjgarnicap?utm_medium=embed&utm_campaign=share-popup&utm_content=cd178e25a0e6436380b15fc1539a25f2" target="_blank" rel="nofollow" style="font-weight:bold;color:#1CAAD9;">Ricardo Garnica</a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=cd178e25a0e6436380b15fc1539a25f2" target="_blank" rel="nofollow" style="font-weight:bold;color:#1CAAD9;">Sketchfab</a>' +
-            '</p>' +
-          '</div>' +
-        '</a>';
-      }
-      
-      // Regular image-based cards
-      const thumbCandidate = String(item.path).replace(/\.md$/i, '.gif');
-      const thumbUrl = new URL(thumbCandidate, location.href).href;
-      return '<a class="make-card" href="#" data-path="' + escapeHtml(item.path) + '">' +
-        '<div class="make-thumb"><img src="' + escapeHtml(thumbUrl) + '" alt="' + escapeHtml(item.label) + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=placeholderDataUrl(\'' + safeLabel + '\')" /></div>' +
-        '<div class="make-info"><h3>' + escapeHtml(item.label) + '</h3><p>' + escapeHtml(item.description || '') + '</p></div>' +
-      '</a>';
-    }).join('');
-
-    setContent('<section class="makes-grid">' + cards + '</section>');
-    document.querySelectorAll('.make-card, .make4-card, .make6-card').forEach(a => {
+    const list = document.createElement('ul');
+    list.className = 'makes-folder-list';
+    makesFolders.forEach(f => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#';
+      a.textContent = f.label;
+      a.dataset.path = f.path;
       a.addEventListener('click', (e) => {
         e.preventDefault();
-        loadMarkdown(a.dataset.path);
+        loadMarkdown(f.path);
         closeMenu();
       });
+      li.appendChild(a);
+      list.appendChild(li);
     });
+
+    setContent('');
+    document.getElementById('content').appendChild(list);
     return;
   }
 
@@ -381,6 +373,8 @@ function showFolderPage(manifest, folder) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const content = document.getElementById('content');
+  homeMarkup = content ? content.innerHTML : '';
   const manifest = await loadManifest();
   buildMenu(manifest);
   setMenuOpen(false);
@@ -391,10 +385,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
   // Home header resets the content area
-  document.getElementById('home-header').addEventListener('click', () => {
-    setContent('');
-    closeMenu();
-  });
-  // Start on a blank home state
-  setContent('');
+  document.getElementById('home-header').addEventListener('click', showHome);
+  if (content) {
+    content.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-home-action]');
+      if (!button) return;
+      const action = button.getAttribute('data-home-action');
+      if (action === 'open-menu') {
+        setMenuOpen(true);
+        return;
+      }
+      if (action === 'go-about') {
+        loadMarkdown('./Pages/about.md');
+      }
+    });
+  }
+  // Start on the clean home state already defined in the HTML.
+  showHome();
 });

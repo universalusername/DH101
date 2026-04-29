@@ -1,0 +1,5 @@
+# Week 4 Reflection
+
+Reflect 4: Is AI a collaborator, tool, or plagiarist in storytelling?
+
+In the storytelling context, AI is a fair mix of all three. AI is a plagiarist in the sense that some of the material it was trained on consisted of millions, if not billions of works by copyrighted authors. That means that every generated response is at least partially plagiarized. AI is a tool when it is used to fix grammatical errors and syntactical mishaps, surface level fixes that do not attempt to alter existing meaning. AI is then a collaborator whenever the final product's meaning has been significantly changed due to the changes made by AI, or if the final material is completely AI generated. Humans are both the beneficiary and the deprived party every time AI is used. We use AI as tools to improve our own stories and even work with AI to create works with little input or effort of our own. However, it is important to make sure your original intent shines through no matter how much of a story was AI generated; after all, humans are the only ones fully capable of assigning true meaning and value to the stories created.

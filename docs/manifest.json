@@ -18,7 +18,7 @@
       "description": ""
     },
     {
-      "path": "./Makes/make 6.md",
+      "path": "./Makes/make6.md",
       "label": "Make 6",
       "description": ""
     },
@@ -35,69 +35,24 @@
   ],
   "Relfections": [
     {
-      "path": "./Relfections/week01.md",
+      "path": "./Relfections/Invisible Labor.md",
       "label": "Week 1",
-      "description": "Mission briefing and first reflections."
+      "description": "What counts as making in the age of AI."
     },
     {
-      "path": "./Relfections/week02.md",
+      "path": "./Relfections/Ecology.md",
       "label": "Week 2",
-      "description": "Course corrections and new questions."
+      "description": "Can AI help define what it means to be human?"
     },
     {
-      "path": "./Relfections/week03.md",
+      "path": "./Relfections/Self.md",
       "label": "Week 3",
-      "description": "Field notes from this week's experiments."
+      "description": "Authenticity when identity is co-constructed with AI."
     },
     {
-      "path": "./Relfections/week04.md",
+      "path": "./Relfections/Play.md",
       "label": "Week 4",
-      "description": "What worked, what drifted, and why."
-    },
-    {
-      "path": "./Relfections/week05.md",
-      "label": "Week 5",
-      "description": "Checkpoint log of methods and outcomes."
-    },
-    {
-      "path": "./Relfections/week06.md",
-      "label": "Week 6",
-      "description": "Mid-mission recalibration and insights."
-    },
-    {
-      "path": "./Relfections/week07.md",
-      "label": "Week 7",
-      "description": "Patterns discovered across the project."
-    },
-    {
-      "path": "./Relfections/week08.md",
-      "label": "Week 8",
-      "description": "Challenges encountered and solved."
-    },
-    {
-      "path": "./Relfections/week09.md",
-      "label": "Week 9",
-      "description": "Expanded scope and evolving direction."
-    },
-    {
-      "path": "./Relfections/week10.md",
-      "label": "Week 10",
-      "description": "System checks on process and progress."
-    },
-    {
-      "path": "./Relfections/week11.md",
-      "label": "Week 11",
-      "description": "Interpretation of key findings so far."
-    },
-    {
-      "path": "./Relfections/week12.md",
-      "label": "Week 12",
-      "description": "Final approach before landing the project."
-    },
-    {
-      "path": "./Relfections/week13.md",
-      "label": "Week 13",
-      "description": "Mission summary and final reflection."
+      "description": "Is AI a collaborator, tool, or plagiarist in storytelling?"
     }
   ],
   "AI-Log": [

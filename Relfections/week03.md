@@ -1,5 +1,0 @@
-# Week 3 Reflection
-
-Reflect 3: What does “authenticity” mean when identity is co-constructed with AI?
-
-Identity has always been co-constructed; from books to movies and sport teams, we use the world around us to influence and determine our sense of self. And, in a sense, even the repetitive pattern recognition of AI isn't something unordinary. Artists consistently fall into categories of art style, music falls into genres, and writers learn the patterns of linguistic syntax to use in their narratives. In my opinion, authenticity in the context of AI is a question of influence and human ability. A human decides what to prompt the machine with, what edits to make and accept, and signs off on the finished work as something that expresses their point. Authenticity shines through human interference, the choices we make, and the impression of our influence.
