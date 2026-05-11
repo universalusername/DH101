@@ -1,7 +1,6 @@
-AI & Ecology
+# AI & Ecology
 
-## The Artifact
-<div class="flourish-embed flourish-chart" data-src="visualisation/28578594"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/28578594/thumbnail" width="100%" alt="visualization" /></noscript></div>
+<div class="flourish-embed flourish-pictogram" data-src="visualisation/28578594"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/28578594/thumbnail" width="100%" alt="pictogram visualization" /></noscript></div>
 
 ## Research Documentation
 For sources, I got my base information from both the Atlas of AI and the MIT Technology Review article. From there, I decided how to implement my visualization: the unit of measurement would be in GPT Trainings (552t CO2) so that it would be easy for the viewer to see the connections between everyday items/actions and the overall impact of AI. Then, I used the Machine Learning and Environmental calculators (as well as a regular calculator) to get the values I needed and average out outliers to provide the most well-rounded information.

@@ -59,7 +59,9 @@ button {
   max-width: 1240px;
   margin: 0 auto;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 16px;
   padding: 18px 20px;
   border: 1px solid var(--line);
@@ -67,6 +69,35 @@ button {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 250, 248, 0.88) 100%);
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(24px);
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.header-actions .secondary-action {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 12px 28px rgba(255, 91, 120, 0.32);
+}
+
+.header-actions .secondary-action:hover,
+.header-actions .secondary-action:focus-visible {
+  background: linear-gradient(135deg, var(--accent-strong) 0%, #ff1f4f 100%);
+  box-shadow: 0 16px 36px rgba(255, 91, 120, 0.42);
 }
 
 .menu-toggle {
@@ -105,8 +136,8 @@ button {
 }
 
 .brand-lockup {
-  display: grid;
-  gap: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .brand-button {
@@ -114,7 +145,7 @@ button {
   border: 0;
   background: transparent;
   color: var(--fg);
-  text-align: left;
+  text-align: center;
   font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: 1.45rem;
   font-weight: 700;
@@ -142,7 +173,6 @@ nav#menu {
   position: absolute;
   top: 18px;
   left: 20px;
-  bottom: 28px;
   width: min(320px, calc(100vw - 40px));
   padding: 16px;
   background: linear-gradient(135deg, rgba(26, 26, 26, 0.96) 0%, rgba(52, 26, 26, 0.96) 100%);
@@ -155,6 +185,8 @@ nav#menu {
   pointer-events: none;
   z-index: 15;
   overflow: auto;
+  height: auto;
+  max-height: calc(100vh - 46px);
 }
 
 body.menu-open nav#menu {
@@ -215,7 +247,7 @@ main#content {
   position: relative;
   z-index: 1;
   min-height: calc(100vh - 104px);
-  padding: 24px;
+  padding: 14px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 250, 248, 0.72) 100%);
   color: var(--fg);
   border: 1px solid var(--line);
@@ -226,12 +258,12 @@ main#content {
 
 .home-panel {
   display: grid;
-  gap: 24px;
+  gap: 12px;
 }
 
 .home-panel--dashboard,
 .home-panel--home {
-  padding: 24px;
+  padding: 10px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 250, 248, 0.82) 100%);
   border-radius: 28px;
   box-shadow: var(--shadow-sm);
@@ -240,15 +272,17 @@ main#content {
 
 .home-hero {
   display: grid;
-  gap: 12px;
+  gap: 4px;
   max-width: 70ch;
+  text-align: center;
+  justify-items: center;
 }
 
 .home-panel--home {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-  align-items: center;
-  gap: 24px;
+  align-items: start;
+  gap: 12px;
 }
 
 .home-embed {
@@ -293,6 +327,7 @@ main#content {
   margin: 0;
   font-size: 1.04rem;
   color: var(--muted);
+  text-align: center;
 }
 
 .home-actions {
@@ -300,6 +335,7 @@ main#content {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 10px;
+  justify-content: center;
 }
 
 .home-stats {
@@ -792,6 +828,13 @@ main#content > ol {
   background: rgba(255, 193, 7, 0.12);
 }
 
+.make-card--neon,
+.make-card--game,
+.make-card--map,
+.make-card--paper {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 250, 248, 0.88) 100%);
+}
+
 .make4-card,
 .make6-card {
   position: relative;
@@ -866,12 +909,27 @@ main#content > ol {
     padding-right: 14px;
   }
 
-  .header-inner {
-    flex-direction: column;
-  }
-
   .brand-lockup p {
     max-width: 100%;
+  }
+
+  .header-inner {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-main {
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+  .header-actions .secondary-action {
+    white-space: nowrap;
+    padding: 10px 12px;
   }
 
   .menu-toggle {
@@ -883,7 +941,7 @@ main#content > ol {
     width: min(86vw, 300px);
     left: 14px;
     top: 12px;
-    bottom: 20px;
+    max-height: calc(100vh - 32px);
   }
 
   main#content {
@@ -892,11 +950,11 @@ main#content > ol {
   }
 
   .home-panel--dashboard {
-    padding: 16px;
+    padding: 14px;
   }
 
   .home-panel--home {
-    padding: 16px;
+    padding: 14px;
   }
 
   .home-hero h2 {
@@ -909,7 +967,7 @@ main#content > ol {
 
   .home-actions {
     gap: 10px;
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   .home-stats,
@@ -946,6 +1004,17 @@ main#content > ol {
   .header-inner {
     padding: 12px;
     border-radius: 18px;
+    gap: 10px;
+  }
+
+  .header-main {
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .header-actions .secondary-action {
+    padding: 9px 10px;
+    font-size: 0.92rem;
   }
 
   .brand-button {
@@ -953,11 +1022,11 @@ main#content > ol {
   }
 
   .home-panel--dashboard {
-    padding: 14px;
+    padding: 12px;
   }
 
   .home-panel--home {
-    padding: 14px;
+    padding: 12px;
   }
 
   .home-hero h2 {
@@ -1010,5 +1079,10 @@ main#content > ol {
   .home-panel--home {
     gap: 36px;
     padding: 28px;
+    align-items: center;
+  }
+
+  .home-embed {
+    align-self: center;
   }
 }

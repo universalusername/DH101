@@ -1,12 +1,11 @@
 # Selfies & Identity
 
-## The Artifact
-
 ![Side by side comparison of a woman's face; the first is smooth and unblemished, while the second has several flawed marked and annotated.](week03.png)
 
-Image 1: AI-Generated Selfie
+### Image 1: AI-Generated Selfie
 A young woman with smooth/unblemished skin smiles softly at the viewer. The face is nearly symmetrical save for a small difference in the eyebrows; the face has no imperfections at all. The background is blurred but could be a street scene/outdoor seating of a cafe.
-Image 2: Remixed Selfie
+
+### Image 2: Remixed Selfie
 Notes detail the uncanniness of the ‘perfect’ AI image. I drew common human ‘imperfections’ like wrinkles, eye bags, unplucked brows, acne, and a scar under the lip. The before and after shows the uniqueness every flaw brings to a person’s face.
 
 ## Reflection

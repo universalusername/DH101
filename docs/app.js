@@ -2,6 +2,17 @@
 let homeMarkup = '';
 let appManifest = {};
 
+// Configure marked to allow HTML in markdown
+marked.setOptions({ 
+  pedantic: false,
+  gfm: true,
+  breaks: true 
+});
+const renderer = new marked.Renderer();
+const originalHtml = renderer.html.bind(renderer);
+renderer.html = (token) => typeof token === 'string' ? token : (token.text || '');
+marked.setOptions({ renderer });
+
 async function loadManifest() {
   const url = new URL('manifest.json', location.href);
   url.searchParams.set('_t', Date.now().toString());
@@ -21,8 +32,15 @@ function setContent(nodeOrHtml) {
   }
 }
 
+function scrollToTop() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
 function showHome() {
   if (homeMarkup) setContent(homeMarkup);
+  scrollToTop();
   closeMenu();
 }
 
@@ -87,12 +105,10 @@ function buildHomeMarkup(manifest) {
   const hero = document.createElement('div');
   hero.className = 'home-hero';
   hero.innerHTML = `
-    <p class="eyebrow">DH101 portfolio</p>
-    <h2>Critical making, reflections, and experiments in one place.</h2>
-    <p class="home-summary">This is the front page for the portfolio. Use the menu for the Makes page, the Reflections page, and the supporting pages.</p>
+    <h2>Human-Made in the Age of AI</h2>
+    <p class="home-summary">In a world shaped by algorithms and automation, authenticity matters more than ever. These projects explore what it means to create as a human: bringing together experience, emotion, curiosity, and intention in ways AI can only imitate. While technology can generate and replicate, meaningful work comes from perspective, values, and the desire to question, interpret, and connect. This space is a collection of makes that reflect that human process.</p>
     <div class="home-actions">
-      <button class="primary-action" type="button" data-home-action="open-menu">Open menu</button>
-      <button class="secondary-action" type="button" data-home-action="go-about">Start with About Me</button>
+      <button class="primary-action" type="button" data-home-action="go-makes">Start Exploring</button>
     </div>
   `;
 
@@ -113,7 +129,6 @@ function buildHomeMarkup(manifest) {
         web-share
         src="https://sketchfab.com/models/726067b21dcc439895aec9c3d2410881/embed?autostart=1&camera=0&transparent=1&ui_hint=0"></iframe>
     </div>
-    <p class="home-embed-caption">The home page stays focused on the feature embed, while the menu keeps the Makes and Reflections pages separate.</p>
   `;
 
   page.appendChild(hero);
@@ -277,6 +292,7 @@ async function loadMarkdown(path) {
       let src = img.getAttribute('src') || ''; src = src.replace(/\\/g, '/'); if (/^(https?:)?\/\//i.test(src)) return; if (src.startsWith('/')) src = '.' + src; const resolved = new URL(src, baseUrl).href; img.setAttribute('src', resolved + (resolved.includes('?') ? '&' : '?') + '_t=' + Date.now());
     });
     setContent(''); const contentEl = document.getElementById('content'); while (temp.firstChild) contentEl.appendChild(temp.firstChild);
+    scrollToTop();
   } catch (err) { setContent('<p>Error loading file: ' + err.message + '</p>'); }
 }
 
@@ -290,6 +306,7 @@ function loadAsset(path) {
 
 function buildMenu(manifest) {
   const ul = document.querySelector('#menu ul'); ul.innerHTML = ''; Object.keys(manifest).forEach(folder => {
+    if (folder === 'About Me' || folder === 'Markdown Guide') return;
     const files = manifest[folder] || [];
     const label = folder === 'Reflections' ? 'Reflections' : folder;
     if (files.length === 1) {
@@ -315,79 +332,75 @@ function showFolderPage(manifest, folder) {
     const grid = document.createElement('div');
     grid.className = 'makes-grid';
 
+    const makesTitles = ['Selfie', 'GIF', 'Text', 'Map', 'Network', 'Bot', 'Play', 'Visualization', 'Museum'];
+    const cardTypes = ['neon', 'game', 'paper', 'map', 'neon', 'game', 'paper', 'neon', 'paper'];
+    const makeDescriptions = [
+      'AI-generated portraits remixed with human imperfections',
+      'Looping surveillance imagery exploring constant observation',
+      'Analyzing literary patterns through Voyant and ChatGPT',
+      'Mapping the hidden costs of AI infrastructure globally',
+      'Visualizing the AI supply chain and labor exploitation',
+      'Exploring AI personality generation and creative autonomy',
+      'An interactive experience about content moderation and agency',
+      'Visualizing the carbon footprint of AI training and use',
+      'A museum exhibit from 2099 showing the cost of AI expansion'
+    ];
+    const makeTags = [
+      ['Identity', 'Remix', 'Portrait'],
+      ['Surveillance', 'Loop', 'Motion'],
+      ['Analysis', 'Text', 'Patterns'],
+      ['Infrastructure', 'Mapping', 'Systems'],
+      ['Supply Chain', 'Power', 'Networks'],
+      ['Character', 'Generation', 'Dialogue'],
+      ['Interactive', 'Choice', 'Game'],
+      ['Environment', 'Data', 'Ecology'],
+      ['Futures', 'Climate', 'Speculation']
+    ];
+    
     const makesFolders = getSectionEntries(manifest, 'Makes').map((item, index) => ({
       ...item,
-      title: item.label,
-      subtitle: item.description || 'Open this make to read the write-up.',
-      details: index === 0 ? 'GIF, visual rhythm, and remix culture.' : index === 1 ? 'Mapping, systems, and spatial reading.' : index === 2 ? 'Interactive play and decision-making.' : 'Project notes and final iteration.',
-      accent: index === 0 ? 'neon' : index === 1 ? 'map' : index === 2 ? 'game' : 'paper',
-      thumbnail: item.thumbnail || (index === 0 ? './Makes/2GIFMake/make4.gif' : ''),
-      tags: index === 0 ? ['GIF', 'loop', 'motion'] : index === 1 ? ['map', 'research', 'systems'] : index === 2 ? ['game', 'choices', 'narrative'] : ['notes', 'reflection', 'process']
+      title: makesTitles[index] || item.label,
+      cardType: cardTypes[index] || 'neon',
+      description: makeDescriptions[index] || 'Click to explore',
+      tags: makeTags[index] || ['Make'],
+      path: item.path
     }));
 
     makesFolders.forEach(item => {
       const card = document.createElement('article');
-      card.className = 'make-card make-card--' + item.accent;
+      card.className = `make-card make-card--${item.cardType}`;
 
-      const visual = document.createElement('div');
-      visual.className = 'make-preview make-preview--' + item.accent;
+      const preview = document.createElement('div');
+      preview.className = `make-preview make-preview--${item.cardType}`;
+      const svgDataUrl = buildMakePreviewSvg({ label: item.label, title: item.title, accent: item.cardType });
+      preview.innerHTML = `<img src="${svgDataUrl}" alt="${item.title}" />`;
+      card.appendChild(preview);
 
-      const img = document.createElement('img');
-      img.src = item.thumbnail || buildMakePreviewSvg(item);
-      img.alt = item.title + ' preview';
-      visual.appendChild(img);
-
-      const body = document.createElement('div');
-      body.className = 'make-info';
-
-      const meta = document.createElement('div');
-      meta.className = 'make-meta';
-      const metaLabel = document.createElement('span');
-      metaLabel.textContent = item.label;
-      const metaAccent = document.createElement('span');
-      metaAccent.className = 'make-meta-accent';
-      metaAccent.textContent = item.accent;
-      meta.appendChild(metaLabel);
-      meta.appendChild(metaAccent);
+      const info = document.createElement('div');
+      info.className = 'make-info';
 
       const title = document.createElement('h3');
       title.textContent = item.title;
+      info.appendChild(title);
 
-      const subtitle = document.createElement('p');
-      subtitle.className = 'make-summary';
-      subtitle.textContent = item.subtitle;
-
-      const details = document.createElement('p');
-      details.className = 'make-detail';
-      details.textContent = item.details;
+      const summary = document.createElement('p');
+      summary.className = 'make-summary';
+      summary.textContent = item.description;
+      info.appendChild(summary);
 
       const tags = document.createElement('div');
       tags.className = 'make-tags';
-      item.tags.forEach(tag => {
-        const chip = document.createElement('span');
-        chip.className = 'make-tag';
-        chip.textContent = tag;
-        tags.appendChild(chip);
+      item.tags.forEach(tagText => {
+        const tag = document.createElement('span');
+        tag.className = 'make-tag';
+        tag.textContent = tagText;
+        tags.appendChild(tag);
       });
+      info.appendChild(tags);
 
-      const action = document.createElement('button');
-      action.type = 'button';
-      action.className = 'make-open';
-      action.textContent = 'Open ' + item.label;
-      action.addEventListener('click', () => loadMarkdown(item.path));
+      card.appendChild(info);
 
-      body.appendChild(meta);
-      body.appendChild(title);
-      body.appendChild(subtitle);
-      body.appendChild(details);
-      body.appendChild(tags);
-      body.appendChild(action);
-
-      card.appendChild(visual);
-      card.appendChild(body);
-
-      card.addEventListener('click', (event) => {
-        if (event.target.closest('button')) return;
+      card.addEventListener('click', () => {
         loadMarkdown(item.path);
       });
 
@@ -396,6 +409,7 @@ function showFolderPage(manifest, folder) {
 
     page.appendChild(grid);
     setContent(page);
+    scrollToTop();
     return;
   }
   if (folderName === 'reflections') {
@@ -432,11 +446,12 @@ function showFolderPage(manifest, folder) {
 
     page.appendChild(list);
     setContent(page);
+    scrollToTop();
     return;
   }
   const entries = files.map(f => typeof f === 'string' ? { path: normalizePath(f), label: f } : { path: normalizePath(f.path || ''), label: f.label || f.path, description: f.description || '' }).filter(i => i.path && i.path.toLowerCase().endsWith('.md'));
-  if (entries.length === 0) { setContent('<p>No markdown pages listed for this folder.</p>'); return; }
-  const list = document.createElement('ul'); entries.forEach(item => { const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = item.label || item.path; a.dataset.path = item.path; a.addEventListener('click', e => { e.preventDefault(); loadMarkdown(item.path); closeMenu(); }); li.appendChild(a); if (item.description) { const desc = document.createElement('div'); desc.className = 'list-item-desc'; desc.textContent = item.description; li.appendChild(desc); } list.appendChild(li); }); setContent(''); document.getElementById('content').appendChild(list);
+  if (entries.length === 0) { setContent('<p>No markdown pages listed for this folder.</p>'); scrollToTop(); return; }
+  const list = document.createElement('ul'); entries.forEach(item => { const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = item.label || item.path; a.dataset.path = item.path; a.addEventListener('click', e => { e.preventDefault(); loadMarkdown(item.path); closeMenu(); }); li.appendChild(a); if (item.description) { const desc = document.createElement('div'); desc.className = 'list-item-desc'; desc.textContent = item.description; li.appendChild(desc); } list.appendChild(li); }); setContent(''); document.getElementById('content').appendChild(list); scrollToTop();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -447,14 +462,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   setMenuOpen(false);
   const menuToggle = document.getElementById('menu-toggle'); if (menuToggle) menuToggle.addEventListener('click', () => toggleMenu());
   const homeHeader = document.getElementById('home-header'); if (homeHeader) homeHeader.addEventListener('click', showHome);
+  document.querySelectorAll('[data-header-action="go-about"]').forEach((button) => {
+    button.addEventListener('click', () => loadMarkdown('./Pages/about.md'));
+  });
   if (content) {
     content.addEventListener('click', (event) => {
       const button = event.target.closest('[data-home-action]');
       if (!button) return;
       const action = button.getAttribute('data-home-action');
-      if (action === 'open-menu') { setMenuOpen(true); return; }
-      if (action === 'go-about') { loadMarkdown('./Pages/about.md'); }
+      if (action === 'go-makes') { showFolderPage(appManifest, 'Makes'); closeMenu(); return; }
     });
   }
+  document.addEventListener('click', (event) => {
+    if (!document.body.classList.contains('menu-open')) return;
+    if (event.target.closest('#menu')) return;
+    if (event.target.closest('button')) return;
+    closeMenu();
+  });
   showHome();
+  scrollToTop();
 });

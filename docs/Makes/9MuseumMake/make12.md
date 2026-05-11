@@ -1,6 +1,5 @@
-Futures of AI & Humanity
+# Futures of AI & Humanity
 
-## The Artifact
 ![Alt Text](1000009552.jpg)
 ![Alt Text](1000009555.jpg)
 

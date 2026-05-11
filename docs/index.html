@@ -14,14 +14,18 @@
   <body>
     <header class="site-header">
       <div class="header-inner">
-        <button id="menu-toggle" class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Toggle menu">
-          <span class="menu-toggle-line"></span>
-          <span class="menu-toggle-line"></span>
-          <span class="menu-toggle-line"></span>
-        </button>
-        <div class="brand-lockup">
-          <button id="home-header" class="brand-button" type="button">DH101</button>
-          <p>Critical making, reflections, and experiments in one clean workspace.</p>
+        <div class="header-main">
+          <button id="menu-toggle" class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Toggle menu">
+            <span class="menu-toggle-line"></span>
+            <span class="menu-toggle-line"></span>
+            <span class="menu-toggle-line"></span>
+          </button>
+          <div class="brand-lockup">
+            <button id="home-header" class="brand-button" type="button">DH101</button>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="secondary-action" type="button" data-header-action="go-about">About Me</button>
         </div>
       </div>
     </header>
@@ -36,23 +40,20 @@
       <main id="content">
         <section class="home-panel home-panel--home">
           <div class="home-hero">
-            <p class="eyebrow">DH101 portfolio</p>
-            <h2>Critical making, reflections, and experiments in one place.</h2>
-            <p class="home-summary">This is the front page for the portfolio. Use the menu for the Makes page, the Reflections page, and the supporting pages.</p>
+            <h2>Human-Made in the Age of AI</h2>
+            <p class="home-summary">In a world shaped by algorithms and automation, authenticity matters more than ever. These projects explore what it means to create as a human: bringing together experience, emotion, curiosity, and intention in ways AI can only imitate. While technology can generate and replicate, meaningful work comes from perspective, values, and the desire to question, interpret, and connect. This space is a collection of makes that reflect that human process.</p>
             <div class="home-actions">
-              <button class="primary-action" type="button" data-home-action="open-menu">Open menu</button>
-              <button class="secondary-action" type="button" data-home-action="go-about">Start with About Me</button>
+              <button class="primary-action" type="button" data-home-action="go-makes">Start Exploring</button>
             </div>
           </div>
           <div class="home-embed">
             <div class="sketchfab-embed-wrapper">
               <iframe title="Cat in a Box" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-view execution-while-not-rendered web-share src="https://sketchfab.com/models/726067b21dcc439895aec9c3d2410881/embed?autostart=1&camera=0&transparent=1&ui_hint=0"></iframe>
             </div>
-            <p class="home-embed-caption">The home page stays focused on the feature embed, while the menu keeps the Makes and Reflections pages separate.</p>
           </div>
         </section>
       </main>
     </div>
-    <script src="app.js?v=3"></script>
+    <script src="app.js?v=13"></script>
   </body>
 </html>

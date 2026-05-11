@@ -1,7 +1,6 @@
-Bots & Generators
+# Bots & Generators
 
-## The Artifact
-Sir Cedric the Knight
+## Sir Cedric the Knight
 https://character.ai/chat/kRNwhrjUaTC6mgBMKYbqsb3GmzbsoOWsWel0B1UpRcQ
 
 ### Curated Outputs
@@ -117,21 +116,28 @@ Take your pick, looks like I can afford most of them.
 ## Documentation
 ### How did you build/set up the generator?
 I started simple, with a basic idea of a knight: His name is Cedric and he is a knight. Simple, but produced bland responses with varying personalities. By adding more detail–backstory, personality–I saw more interesting and natural-sounding responses. The more I added into the character definition, the easier it was to hold a coherent conversation with it. In the end, I laid out a backstory, personality, list of strengths and weaknesses, behaviour, sense of humor, rules of interaction, and example messages/responses. This produced varied reactions and the ability to follow a story I laid out in the chat. I found that trying to add much more to the definition didn’t make much of a difference: after reading the instructions it seems that importance is based upon order in the definition. Ideas at the beginning/top are more emphasized than ideas at the bottom/end, and if it is very long, the bottom/end is summarized instead.
+
 ### What parameters did you control? 
 I controlled the overall behaviour/personality of the bot and which responses to ‘encourage’. By replying to certain bot responses, I was able to train it to lean more towards natural sounding humor, the use of narration and movement rather than pure dialogue, and overall longer responses.
+
 ### How many total outputs did you generate?
 42 outputs. Not all were responses to a new reply from me, most of it was actually hitting the refresh button on an existing response it had given me and exploring how its reactions differed when given the same prompt or had its definition slightly altered.
+
 ### How did you choose?/What did you reject? Why?
 I tried various storylines: slaying a monster, saving a princess, and finding treasure. I stuck with the last one because it had much more personality and definition than the others, and it picked up on what I wanted more of (narration, long responses, natural humor) much better than the other storylines. It didn’t forget the story halfway through, it didn’t switch to a different personality at random, and when refreshing the responses each one was significantly different compared to the others (they had generally repeated/paraphrased the same thing over and over). 
 
 ## Artist Statement
 ### 1. At what point did YOU make a creative decision? List specific moments.
 When creating the bot, I had full creative control over the ‘rules’ I gave it: Name, personality, humor, etc. When using the bot, I did not have full creative control; instead, I could give implicit instructions that guided the bot’s behaviour. I did this by responding to messages that had characteristics I wanted to see more of, which made the bot more likely to reproduce those effects/characteristics. I did try telling it directly in chat that it was now a modern day doctor and that we were doing a blood draw, but it forgot this instruction within 2 messages. Control wasn’t so much in the chat itself (it often forgot), rather in the guidelines I assigned to it. No matter what it returned to the clumsy knight-in-training personality I had set originally. That is where my creative decisions had the most impact.
+
 ### 2. If you showed someone your curated outputs without explanation, would they know a human selected them?
 I would assume yes: the responses I chose follow a basic storyline and are generally consistent in style. The personality is believable (even if as a trope) and its behaviour doesn’t take random turns as you might expect from AI selected responses (they hallucinate).
+
 ### 3. What would "pure" AI creativity look like? What would "pure" human creativity look like? Where does your work fall?
 In this case, pure AI creativity would look like a bot that is fairly generic/agreeable and doesn’t produce unique responses; it repeats the limited script over and over again and never develops a nuanced story or character development. Pure human creativity with characters is much more nuanced: I can name dozens of characters that have deep meaning, undergo dramatic change, and develop throughout the story they are a part of. For example, while an AI might describe Vash (from Trigun) as a sharpshooting cowboy, anyone that has ever even looked at the story would be able to see the deeper meaning of his character: the biblical connections, the struggle as a pacifist in a violent world, lonely but unable to make connections due to the disaster that always chases him, and so much more. I could get really into this but I’ll spare you.
+
 I believe that my work falls closer to the side of AI creativity. I created the rules for it to follow, yes, but it will still never go beyond those rules (and if it does it always returns to them shortly). It is incapable of acting as a character that undergoes change and is influenced by the story/messages the user sends. It is static whereas human creativity is dynamic.
+
 ### Did you ever feel overwhelmed by infinite generation? When did you know to stop?
 Yes, absolutely. It feels like searching for that perfect response…but what is perfect? I want what I am expecting (continuation of story and style), but I don't want to be bored, surprise me with something new! Using the refresh response button over and over made me fall a bit into a hole where I was thinking “but the next one might be funnier, or cooler sounding, or have an interesting point about the story…” Ultimately I knew when to stop by asking myself these questions: “Does it make sense? Is it what I expected? Does it introduce anything new? Do I want to see more of this?” If the answer was yes to all, then I went with that response. Knowing that there is an infinite amount of responses, limiting myself by these questions to the first one to fit the criteria took some of the pressure off of me to find the perfect response.
 

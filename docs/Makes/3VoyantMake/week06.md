@@ -1,6 +1,4 @@
-Text & Distant Reading
-
-## The Artifact
+# Text & Distant Reading
 
 <!--	Exported from Voyant Tools (voyant-tools.org).
 The iframe src attribute below uses a relative protocol to better function with both
@@ -24,7 +22,9 @@ Voyant analyzes words as data, recognizing repetition and words that are commonl
 
 ## Reflection
 Voyant recognizes patterns in word repetition and connected words in sentence structure. Though it displays this data in a way that might allow a human reader to assign meaning to the highlighted patterns, it ultimately misses things such as implied themes (such as the fact that the story I chose is an allegory of the transgender experience, among other things) and infrequent words that might have central meaning. The emphasis on high frequency = most meaning can be true in some contexts, but in others it may prove less helpful and even distract a reader from the true meaning of a text.
+
 GPT fills in the missing ‘meaning’ parts of the text analysis. It crafts an easily comprehensible summary of main points, themes, and symbolism in the text. Every conclusion it presents is done with an unwavering tone that brokers no negotiation. That ‘confidence’ makes GPT seem reliable and knowledgeable about the text when in fact it is comparing the patterns it ‘reads’ to other works, not specifically the one intended. Prompting for analysis on a paragraph or sentence level of a text knocks its certainty down a few notches and can even contradict the conclusions it came to in the full text analysis.
+
 Both of these tools simply recognize patterns rather than ‘read’ as you or I might. While these tools can analyze large amounts of text in a short amount of time, increasing speed/efficiency, they fail to consider personal, emotional, time period, technology, and other factors that impact how humans view the meaning of a text. While these machines are useful for expanding upon our own conclusions, what they state should not be relied upon as written in stone or absolute fact. Humans reading and sharing their own conclusions about a text highlights the nuance in our individual experience; how one’s ethnicity, gender, level of education, belief system, and other human context shape and change how we assign meaning to text. Voyant and GPT can assist in this process, but should never overtake our ability to interpret meaning ourselves and our create personal definitions of authenticity.
 
 
