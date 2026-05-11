@@ -13,6 +13,6 @@ I have tried to make it accessible by:
 - Reducing visual background clutter
 - Using headings to separate text blocks
 - Relocating GIFs and putting an epilepsy trigger warning beforehand
-- All text is right-aligned for ease of reading
+- Text is generally right-aligned for ease of reading
 
 If you encounter barriers, please contact me at shea_s1@denison.edu.
