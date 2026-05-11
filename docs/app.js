@@ -1,5 +1,6 @@
 // Load manifest, build menu, and render markdown files from repo
 let homeMarkup = '';
+let appManifest = {};
 
 async function loadManifest() {
   const url = new URL('manifest.json', location.href);
@@ -23,6 +24,102 @@ function setContent(nodeOrHtml) {
 function showHome() {
   if (homeMarkup) setContent(homeMarkup);
   closeMenu();
+}
+
+function normalizeEntries(entries) {
+  return (entries || []).map((item, index) => {
+    if (typeof item === 'string') {
+      return { path: normalizePath(item), label: item, description: '', index };
+    }
+    return {
+      path: normalizePath(item.path || ''),
+      label: item.label || item.path || 'Untitled',
+      description: item.description || '',
+      index
+    };
+  }).filter(item => item.path && item.path.toLowerCase().endsWith('.md'));
+}
+
+function getSectionEntries(manifest, sectionName) {
+  return normalizeEntries(manifest[sectionName] || []);
+}
+
+function buildSectionCard(entry, options = {}) {
+  const card = document.createElement('a');
+  card.href = '#';
+  card.className = options.className || 'section-card';
+  card.dataset.path = entry.path;
+
+  const badge = document.createElement('span');
+  badge.className = 'section-card-badge';
+  badge.textContent = options.badge || 'Open';
+
+  const label = document.createElement('h3');
+  label.textContent = entry.label;
+
+  const description = document.createElement('p');
+  description.textContent = entry.description || options.fallbackDescription || 'Open the page to read more.';
+
+  card.appendChild(badge);
+  card.appendChild(label);
+  card.appendChild(description);
+
+  if (options.meta) {
+    const meta = document.createElement('div');
+    meta.className = 'section-card-meta';
+    meta.textContent = options.meta;
+    card.appendChild(meta);
+  }
+
+  card.addEventListener('click', (event) => {
+    event.preventDefault();
+    loadMarkdown(entry.path);
+    closeMenu();
+  });
+
+  return card;
+}
+
+function buildHomeMarkup(manifest) {
+  const page = document.createElement('section');
+  page.className = 'home-panel home-panel--home';
+
+  const hero = document.createElement('div');
+  hero.className = 'home-hero';
+  hero.innerHTML = `
+    <p class="eyebrow">DH101 portfolio</p>
+    <h2>Critical making, reflections, and experiments in one place.</h2>
+    <p class="home-summary">This is the front page for the portfolio. Use the menu for the Makes page, the Reflections page, and the supporting pages.</p>
+    <div class="home-actions">
+      <button class="primary-action" type="button" data-home-action="open-menu">Open menu</button>
+      <button class="secondary-action" type="button" data-home-action="go-about">Start with About Me</button>
+    </div>
+  `;
+
+  const embed = document.createElement('div');
+  embed.className = 'home-embed';
+  embed.innerHTML = `
+    <div class="sketchfab-embed-wrapper">
+      <iframe
+        title="Cat in a Box"
+        frameborder="0"
+        allowfullscreen
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true"
+        allow="autoplay; fullscreen; xr-spatial-tracking"
+        xr-spatial-tracking
+        execution-while-out-of-view
+        execution-while-not-rendered
+        web-share
+        src="https://sketchfab.com/models/726067b21dcc439895aec9c3d2410881/embed?autostart=1&camera=0&transparent=1&ui_hint=0"></iframe>
+    </div>
+    <p class="home-embed-caption">The home page stays focused on the feature embed, while the menu keeps the Makes and Reflections pages separate.</p>
+  `;
+
+  page.appendChild(hero);
+  page.appendChild(embed);
+
+  return page;
 }
 
 function buildMakePreviewSvg(item) {
@@ -194,11 +291,12 @@ function loadAsset(path) {
 function buildMenu(manifest) {
   const ul = document.querySelector('#menu ul'); ul.innerHTML = ''; Object.keys(manifest).forEach(folder => {
     const files = manifest[folder] || [];
+    const label = folder === 'Reflections' ? 'Reflections' : folder;
     if (files.length === 1) {
       const entryPath = typeof files[0] === 'string' ? normalizePath(files[0]) : normalizePath(files[0].path || '');
-      const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = folder; a.dataset.path = entryPath; a.addEventListener('click', e => { e.preventDefault(); loadMarkdown(a.dataset.path); closeMenu(); }); li.appendChild(a); ul.appendChild(li); return;
+      const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = label; a.dataset.path = entryPath; a.addEventListener('click', e => { e.preventDefault(); loadMarkdown(a.dataset.path); closeMenu(); }); li.appendChild(a); ul.appendChild(li); return;
     }
-    const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = folder; a.dataset.folder = folder; a.addEventListener('click', e => { e.preventDefault(); showFolderPage(manifest, folder); closeMenu(); }); li.appendChild(a); ul.appendChild(li);
+    const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = label; a.dataset.folder = folder; a.addEventListener('click', e => { e.preventDefault(); showFolderPage(manifest, folder); closeMenu(); }); li.appendChild(a); ul.appendChild(li);
   });
 }
 
@@ -206,56 +304,26 @@ function showFolderPage(manifest, folder) {
   const files = manifest[folder] || [];
   const folderName = String(folder || '').trim().toLowerCase();
   if (folderName === 'makes') {
-    const makesFolders = [
-      {
-        path: './Makes/make4.md',
-        label: 'Make 4',
-        title: 'Surveillance loop',
-        subtitle: 'A flashing GIF built around the feeling of being watched.',
-        details: 'Remix culture, repetition, and uneasy camera-eye energy.',
-        accent: 'neon',
-        thumbnail: './Makes/make4.gif',
-        tags: ['GIF', 'surveillance', 'loop']
-      },
-      {
-        path: './Makes/make6.md',
-        label: 'Make 6',
-        title: 'Mapped extraction',
-        subtitle: 'A location-based artifact that pulls corporate geography into view.',
-        details: 'Research, spatial contrast, and the hidden cost of AI systems.',
-        accent: 'map',
-        tags: ['map', 'research', 'systems']
-      },
-      {
-        path: './Makes/make9.md',
-        label: 'Make 9',
-        title: 'New Hire',
-        subtitle: 'An interactive game about content moderation and choice.',
-        details: 'Branching endings, player responsibility, and AI pressure.',
-        accent: 'game',
-        tags: ['game', 'choices', 'narrative']
-      },
-      {
-        path: './Makes/make12.md',
-        label: 'Make 12',
-        title: 'Project notes',
-        subtitle: 'A reflective checkpoint and placeholder for the final work.',
-        details: 'Process notes, iteration, and the unfinished edges of making.',
-        accent: 'paper',
-        tags: ['notes', 'reflection', 'process']
-      }
-    ];
-
     const page = document.createElement('section');
     page.className = 'makes-page';
 
     const intro = document.createElement('div');
     intro.className = 'makes-intro';
-    intro.innerHTML = '<p class="eyebrow">Makes</p><h2>Artifacts that feel like a collection, not a directory.</h2><p class="makes-intro-copy">Each piece is presented as a card with a small visual language so the page reads like a curated gallery on desktop and a clean stack on mobile.</p>';
+    intro.innerHTML = '<p class="eyebrow">Makes</p><h2>Current artifacts.</h2><p class="makes-intro-copy">Each make gets its own card so the page reads like a gallery of completed pieces, not a file list.</p>';
     page.appendChild(intro);
 
     const grid = document.createElement('div');
     grid.className = 'makes-grid';
+
+    const makesFolders = getSectionEntries(manifest, 'Makes').map((item, index) => ({
+      ...item,
+      title: item.label,
+      subtitle: item.description || 'Open this make to read the write-up.',
+      details: index === 0 ? 'GIF, visual rhythm, and remix culture.' : index === 1 ? 'Mapping, systems, and spatial reading.' : index === 2 ? 'Interactive play and decision-making.' : 'Project notes and final iteration.',
+      accent: index === 0 ? 'neon' : index === 1 ? 'map' : index === 2 ? 'game' : 'paper',
+      thumbnail: item.thumbnail || (index === 0 ? './Makes/2GIFMake/make4.gif' : ''),
+      tags: index === 0 ? ['GIF', 'loop', 'motion'] : index === 1 ? ['map', 'research', 'systems'] : index === 2 ? ['game', 'choices', 'narrative'] : ['notes', 'reflection', 'process']
+    }));
 
     makesFolders.forEach(item => {
       const card = document.createElement('article');
@@ -330,16 +398,52 @@ function showFolderPage(manifest, folder) {
     setContent(page);
     return;
   }
+  if (folderName === 'reflections') {
+    const page = document.createElement('section');
+    page.className = 'reflection-page';
+
+    const intro = document.createElement('div');
+    intro.className = 'makes-intro';
+    intro.innerHTML = '<p class="eyebrow">Reflections</p><h2>Weekly reflection trail.</h2><p class="makes-intro-copy">These entries are arranged as a sequence so the semester reads like a progression of ideas instead of isolated pages.</p>';
+    page.appendChild(intro);
+
+    const entries = getSectionEntries(manifest, 'Reflections');
+    const list = document.createElement('div');
+    list.className = 'reflection-grid';
+
+    entries.forEach((entry, index) => {
+      const card = document.createElement('a');
+      card.href = '#';
+      card.className = 'reflection-card';
+      card.dataset.path = entry.path;
+      card.innerHTML = `
+        <span class="section-card-badge">Week ${index + 1}</span>
+        <h3>${entry.label}</h3>
+        <p>${entry.description || 'Open the reflection to read more.'}</p>
+        <div class="section-card-meta">Read reflection</div>
+      `;
+      card.addEventListener('click', (event) => {
+        event.preventDefault();
+        loadMarkdown(entry.path);
+        closeMenu();
+      });
+      list.appendChild(card);
+    });
+
+    page.appendChild(list);
+    setContent(page);
+    return;
+  }
   const entries = files.map(f => typeof f === 'string' ? { path: normalizePath(f), label: f } : { path: normalizePath(f.path || ''), label: f.label || f.path, description: f.description || '' }).filter(i => i.path && i.path.toLowerCase().endsWith('.md'));
   if (entries.length === 0) { setContent('<p>No markdown pages listed for this folder.</p>'); return; }
   const list = document.createElement('ul'); entries.forEach(item => { const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = item.label || item.path; a.dataset.path = item.path; a.addEventListener('click', e => { e.preventDefault(); loadMarkdown(item.path); closeMenu(); }); li.appendChild(a); if (item.description) { const desc = document.createElement('div'); desc.className = 'list-item-desc'; desc.textContent = item.description; li.appendChild(desc); } list.appendChild(li); }); setContent(''); document.getElementById('content').appendChild(list);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const content = document.getElementById('content'); homeMarkup = content ? content.innerHTML : '';
-  let manifest = {};
-  try { manifest = await loadManifest(); } catch (e) { console.warn('Failed to load manifest', e); }
-  buildMenu(manifest);
+  const content = document.getElementById('content');
+  try { appManifest = await loadManifest(); } catch (e) { console.warn('Failed to load manifest', e); }
+  homeMarkup = buildHomeMarkup(appManifest);
+  buildMenu(appManifest);
   setMenuOpen(false);
   const menuToggle = document.getElementById('menu-toggle'); if (menuToggle) menuToggle.addEventListener('click', () => toggleMenu());
   const homeHeader = document.getElementById('home-header'); if (homeHeader) homeHeader.addEventListener('click', showHome);

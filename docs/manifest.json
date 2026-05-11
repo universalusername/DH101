@@ -13,46 +13,116 @@
   ],
   "Makes": [
     {
-      "path": "./Makes/make4.md",
+      "path": "./Makes/1SelfieMake/week03.md",
+      "label": "Make 1",
+      "description": ""
+    },
+    {
+      "path": "./Makes/2GIFMake/make4.md",
+      "label": "Make 2",
+      "description": ""
+    },
+    {
+      "path": "./Makes/3VoyantMake/week06.md",
+      "label": "Make 3",
+      "description": ""
+    },
+    {
+      "path": "./Makes/4MapMake/make6.md",
       "label": "Make 4",
       "description": ""
     },
     {
-      "path": "./Makes/make6.md",
+      "path": "./Makes/5NetworkMake/week08.md",
+      "label": "Make 5",
+      "description": ""
+    },
+    {
+      "path": "./Makes/6CharacterMake/week09.md",
       "label": "Make 6",
       "description": ""
     },
     {
-      "path": "./Makes/make9.md",
-      "label": "Make 9",
+      "path": "./Makes/7GameMake/make9.md",
+      "label": "Make 7",
       "description": ""
     },
     {
-      "path": "./Makes/make12.md",
-      "label": "Make 12",
+      "path": "./Makes/8VisualizationMake/week12.md",
+      "label": "Make 8",
+      "description": ""
+    },
+    {
+      "path": "./Makes/9MuseumMake/make12.md",
+      "label": "Make 9",
       "description": ""
     }
   ],
-  "Relfections": [
+  "Reflections": [
     {
-      "path": "./Relfections/Invisible Labor.md",
+      "path": "./Reflections/week1.md",
       "label": "Week 1",
-      "description": "What counts as making in the age of AI."
+      "description": ""
     },
     {
-      "path": "./Relfections/Ecology.md",
+      "path": "./Reflections/week2.md",
       "label": "Week 2",
-      "description": "Can AI help define what it means to be human?"
+      "description": ""
     },
     {
-      "path": "./Relfections/Self.md",
+      "path": "./Reflections/week3.md",
       "label": "Week 3",
-      "description": "Authenticity when identity is co-constructed with AI."
+      "description": ""
     },
     {
-      "path": "./Relfections/Play.md",
+      "path": "./Reflections/week4.md",
       "label": "Week 4",
-      "description": "Is AI a collaborator, tool, or plagiarist in storytelling?"
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week05.md",
+      "label": "Week 5",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week06.md",
+      "label": "Week 6",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week07.md",
+      "label": "Week 7",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week08.md",
+      "label": "Week 8",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week09.md",
+      "label": "Week 9",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week10.md",
+      "label": "Week 10",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week11.md",
+      "label": "Week 11",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week12.md",
+      "label": "Week 12",
+      "description": ""
+    },
+    {
+      "path": "./Reflections/week13.md",
+      "label": "Week 13",
+      "description": ""
     }
   ],
   "AI-Log": [
