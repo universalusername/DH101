@@ -182,30 +182,203 @@ function buildMakePreviewSvg(item) {
       <rect x="930" y="430" width="120" height="24" rx="12" transform="rotate(40 930 430)" fill="#00b4d8"/>
     `,
     map: `
-      <rect x="0" y="0" width="1200" height="800" fill="#a8f2f2"/>
-      <path d="M80 90L1140 90" stroke="#dfffff" stroke-width="44" opacity="0.72"/>
-      <path d="M50 220L1110 220" stroke="#dfffff" stroke-width="38" opacity="0.66"/>
-      <path d="M75 350L1160 350" stroke="#dfffff" stroke-width="42" opacity="0.68"/>
-      <path d="M58 485L1120 485" stroke="#dfffff" stroke-width="38" opacity="0.66"/>
-      <path d="M90 620L1150 620" stroke="#dfffff" stroke-width="42" opacity="0.68"/>
+      <defs>
+        <!-- Ocean gradient -->
+        <linearGradient id="ocean" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#8fd3ff"/>
+          <stop offset="100%" stop-color="#5db8ff"/>
+        </linearGradient>
 
-      <path d="M118 138L162 112L214 118L258 142L286 176L292 210L274 232L244 242L226 236L208 250L182 248L150 240L124 220L106 192L104 162Z" fill="#fff18a" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M154 108L176 96L194 102L188 124L172 126L160 118Z" fill="#fff18a" stroke="#111111" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Land texture -->
+        <filter id="paper">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"/>
+          <feColorMatrix type="saturate" values="0"/>
+          <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+        </filter>
 
-      <path d="M354 68L392 56L434 64L468 88L488 124L488 156L472 184L448 202L420 214L392 210L368 196L348 172L334 142L336 108Z" fill="#ff4f46" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M334 214L352 246L370 292L366 346L350 400L330 452L316 506L312 560L300 616L284 676L258 696L236 670L240 618L248 568L260 518L270 462L278 408L286 350L300 288L314 246Z" fill="#ff4f46" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Soft shadow -->
+        <filter id="shadow">
+          <feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity="0.25"/>
+        </filter>
+      </defs>
 
-      <path d="M540 126L586 110L642 116L692 132L736 164L762 206L770 250L760 284L736 314L700 334L662 340L622 334L586 320L552 292L530 254L522 210L526 170Z" fill="#7f78ff" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M650 92L708 86L776 98L836 126L884 164L914 210L918 250L906 286L884 318L854 334L820 340L790 332L766 316L752 290L756 256L742 216L712 184L674 166L642 152Z" fill="#7f78ff" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Ocean -->
+      <rect x="0" y="0" width="1200" height="800" fill="url(#ocean)"/>
 
-      <path d="M534 406L572 392L616 398L650 420L666 454L660 492L638 520L604 534L568 532L536 520L512 494L504 458L508 426Z" fill="#66f06a" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Water current lines -->
+      <path d="M60 120C260 90 460 150 660 120S1060 80 1160 130"
+            stroke="#d8f7ff" stroke-width="18" opacity="0.25" fill="none"/>
 
-      <path d="M872 386L904 372L944 380L970 406L970 440L958 468L936 492L904 504L876 494L850 472L838 444L842 414Z" fill="#ff9f2e" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40 300C220 250 420 340 620 300S980 250 1160 320"
+            stroke="#d8f7ff" stroke-width="22" opacity="0.22" fill="none"/>
 
-      <path d="M220 148L208 138L226 132" fill="none" stroke="#111111" stroke-width="9" stroke-linecap="round"/>
-      <path d="M684 228L706 220L716 238" fill="none" stroke="#111111" stroke-width="9" stroke-linecap="round"/>
-      <path d="M590 468L604 456L622 470" fill="none" stroke="#111111" stroke-width="9" stroke-linecap="round"/>
-      <path d="M74 54L1128 54L1128 744L74 744Z" fill="none" stroke="#111111" stroke-width="12"/>
+      <path d="M80 560C280 520 520 620 720 570S1020 520 1140 600"
+            stroke="#d8f7ff" stroke-width="20" opacity="0.2" fill="none"/>
+
+      <!-- Island 1 -->
+      <path d="
+        M126 146
+        L176 114
+        L238 120
+        L292 150
+        L328 202
+        L322 248
+        L286 282
+        L228 296
+        L172 286
+        L126 252
+        L106 204
+        L112 170
+        Z"
+        fill="#c7d97f"
+        stroke="#2f3d1f"
+        stroke-width="7"
+        stroke-linejoin="round"
+        filter="url(#shadow)"/>
+
+      <!-- Mountains -->
+      <path d="M180 210L214 164L248 210Z"
+            fill="#7d8666"
+            stroke="#49513d"
+            stroke-width="4"/>
+
+      <path d="M226 230L262 184L296 230Z"
+            fill="#687254"
+            stroke="#49513d"
+            stroke-width="4"/>
+
+      <!-- Forest dots -->
+      <circle cx="170" cy="240" r="8" fill="#356b3d"/>
+      <circle cx="196" cy="258" r="8" fill="#356b3d"/>
+      <circle cx="220" cy="246" r="8" fill="#356b3d"/>
+      <circle cx="248" cy="262" r="8" fill="#356b3d"/>
+
+      <!-- Island 2 -->
+      <path d="
+        M382 90
+        L450 74
+        L518 100
+        L566 156
+        L574 226
+        L540 286
+        L478 320
+        L410 314
+        L358 274
+        L330 212
+        L340 144
+        Z"
+        fill="#d9c38b"
+        stroke="#4e3f22"
+        stroke-width="7"
+        filter="url(#shadow)"/>
+
+      <!-- Desert dunes -->
+      <path d="M390 214C430 194 474 194 518 214"
+            stroke="#c7aa64"
+            stroke-width="6"
+            fill="none"
+            opacity="0.8"/>
+
+      <path d="M376 246C426 228 480 232 530 250"
+            stroke="#c7aa64"
+            stroke-width="6"
+            fill="none"
+            opacity="0.7"/>
+
+      <!-- River -->
+      <path d="M468 92C450 166 458 218 486 302"
+            stroke="#6cc9ff"
+            stroke-width="12"
+            fill="none"
+            stroke-linecap="round"/>
+
+      <!-- Main continent -->
+      <path d="
+        M592 130
+        L664 108
+        L748 122
+        L830 174
+        L882 248
+        L896 334
+        L866 410
+        L800 466
+        L712 490
+        L628 474
+        L566 426
+        L528 350
+        L520 260
+        L546 188
+        Z"
+        fill="#8dbb73"
+        stroke="#2f4a2a"
+        stroke-width="8"
+        filter="url(#shadow)"/>
+
+      <!-- Mountains -->
+      <path d="M640 260L694 188L746 260Z"
+            fill="#6f7566"
+            stroke="#49513d"
+            stroke-width="5"/>
+
+      <path d="M708 278L766 198L820 278Z"
+            fill="#5f6558"
+            stroke="#49513d"
+            stroke-width="5"/>
+
+      <!-- Forest -->
+      <circle cx="630" cy="360" r="10" fill="#2d6b39"/>
+      <circle cx="660" cy="382" r="10" fill="#2d6b39"/>
+      <circle cx="694" cy="368" r="10" fill="#2d6b39"/>
+      <circle cx="724" cy="392" r="10" fill="#2d6b39"/>
+      <circle cx="756" cy="370" r="10" fill="#2d6b39"/>
+
+      <!-- Lake -->
+      <ellipse cx="760" cy="332" rx="42" ry="28"
+              fill="#5cbcff"
+              opacity="0.9"/>
+
+      <!-- Small island -->
+      <path d="
+        M930 420
+        L972 398
+        L1018 414
+        L1032 456
+        L1008 494
+        L962 506
+        L922 480
+        L914 442
+        Z"
+        fill="#b7cf77"
+        stroke="#334222"
+        stroke-width="6"
+        filter="url(#shadow)"/>
+
+      <!-- Compass -->
+      <g transform="translate(1030 120)">
+        <circle r="48" fill="#ffffffcc" stroke="#222" stroke-width="5"/>
+        <path d="M0-34L10 0L0 34L-10 0Z"
+              fill="#222"/>
+        <path d="M-34 0L0-10L34 0L0 10Z"
+              fill="#777"/>
+        <text x="0" y="-58"
+              font-size="24"
+              font-family="serif"
+              text-anchor="middle"
+              fill="#111">N</text>
+      </g>
+
+      <!-- Decorative border -->
+      <rect x="34" y="34" width="1132" height="732"
+            rx="12"
+            fill="none"
+            stroke="#1e1e1e"
+            stroke-width="10"/>
+
+      <rect x="52" y="52" width="1096" height="696"
+            rx="8"
+            fill="none"
+            stroke="#ffffff55"
+            stroke-width="3"/>
     `,
     game: `
       <rect x="0" y="0" width="1200" height="800" fill="#0d1321"/>
