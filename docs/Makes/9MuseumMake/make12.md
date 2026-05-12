@@ -1,7 +1,7 @@
 # Futures of AI & Humanity
 
-![Alt Text](1000009552.jpg)
-![Alt Text](1000009555.jpg)
+![Various leaves on a board, labeled with names/scientific names. Parts of each leaf are torn off and the missing parts are drawn on. ](1000009552.jpg)
+![A Tribute to Trees. May 14th, 2099. Featured museum exhibit.](1000009555.jpg)
 
 ## Context Statement
 This artifact depicts a featured museum exhibit on May 14th, 2099. By this year, AI has been fully integrated into every facet of society and daily life. However, this came at a cost; early AI from the 2010s to the 2040s was built and controlled by capitalistic and profit driven corporations. These corporations cared little about the effects their greed had on the environment, and continued extraction operations until the International AI Treaty of 2048 forcibly put an end to it. The damage had already been done, and the effects were dire. Corporations had led clear cutting operations to create more mining sites, metals and rare earth minerals to build GPUs and other AI infrastructure. Data centers had been built around every street corner to run their bots. Between the clear cutting and toxic runoff from the mines to the water shortages and air pollution from the data centers, nature was on its last legs. Featured in the exhibit are what is left of once-common flora specimens from the Midwest of the United States (now the People’s Democracy). These preserved specimens are largely not intact, and scientists have filled in the missing pieces with their best rendition of what we believed they looked like. In the past, humanity decided to turn a blind eye to the suffering of the natural world; not just corporations, but every user and bystander, as well. It is only thanks to activists that we still have 5 species of live trees today. Efforts are continuing to reintroduce them to the outside and increase their biodiversity.

@@ -5,6 +5,7 @@ AI Tools:
 - Midjourney
 - DALL·E
 - Character.ai
+- Copilot
 
 Non-AI tools used in concurrence with AI:
 - Canva
@@ -12,6 +13,7 @@ Non-AI tools used in concurrence with AI:
 - Google My Maps
 - Kumu
 - Inky
+
 
 ## Specific prompts/tasks
 - Create a photorealistic portrait of an early 20s woman with long, dark hair, hazel eyes, freckles, and a blurred background.
@@ -21,6 +23,7 @@ Non-AI tools used in concurrence with AI:
 - Roleplay as an oblivious, clumsy, and warm-hearted knight character.
 - Provide a number of questions for [my story] that would have an ~8min playtime. Provide examples of Inky syntax for variables and conditionals. Proofread [my story] for syntax and grammar errors, and give suggestions about the endings.
 
+
 ## What I kept vs. changed
 - I kept the base image, but added hand-drawn flaws and annotations to highlight where AI generated faces fall short of reality.
 - I kept the image generated, but edited the story, text formatting, color constract, speech bubbles, and panel layout to better convey the story's meaning and theme.
@@ -28,6 +31,7 @@ Non-AI tools used in concurrence with AI:
 - Kept the entire analysis, then compared/constrasted against the non-AI data presented about the text given
 - I kept the base character (the clumsy knight), then refined the story, personality, background, etc. to formulate more natural responses and become more interactive
 - I changed the number of questions to 10 because it ended up fitting the playtime more. My original grammar/syntax was correct, so it was kept. I didn’t use the additional ending ideas because it didn’t align with the core of my story.
+
 
 ## My policy on AI use
 - AI is to be used for brainstorming, editing, proofreading, and image/gif/video creation

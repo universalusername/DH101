@@ -820,6 +820,19 @@ main#content > ol {
   background: rgba(255, 91, 120, 0.1);
 }
 
+.make-card--neon .make-tag,
+.make-card--paper .make-tag {
+  padding: 4px 8px;
+  font-size: 0.72rem;
+}
+
+.make-card[data-make="network"] .make-tag,
+.make-card[data-make="visualization"] .make-tag,
+.make-card[data-make="text"] .make-tag {
+  padding: 3px 7px;
+  font-size: 0.68rem;
+}
+
 .make-card--map .make-tag {
   background: rgba(0, 180, 216, 0.1);
 }

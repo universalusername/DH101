@@ -1,5 +1,7 @@
-> **Markdown help:** See [markdown-guide.md](../pages/markdown-guide.md) for formatting tips and a reflection template.
+# Outlook
 
-# Week 13 Reflection
+## Do we imagine AI futures as utopian, dystopian, or something in between? What do those visions reveal about us?
 
-Reflect 13: Do we imagine AI futures as utopian, dystopian, or something in between? What do those visions reveal about us?
+I imagine an AI-driven future as something in between utopian and dystopian. Thinking back to our discussions of AI as a tool, I see parallels between its development and the rise of the internet. The internet has brought both benefits and drawbacks: social media addiction, faster communication, reduced privacy, data organization, scams, huge online libraries of information, etc.. AI seems likely to follow a similar path, for better or for worse, and I believe it will become so integrated into daily life that it feels almost inescapable, just like the use of devices and the internet. The most challenging aspect will be the uncertainty it creates: “Am I talking to a human? Does that matter? Was this created by a person?” Questions like the ones we’ve discussed in class will become more and more common. As awareness grows, so will the push for regulation, which will shape how AI is developed and used as time goes on.
+
+This vision reveals something about us today: we prioritize innovation before fully understanding its consequences. We embrace new technology for its convenience, profits, and power, while still being uncertain of its effects on things like privacy, identity, and trust. Our mixed expectations of AI (positive and negative) reflect a society that rushes ahead blindly without being prepared for the changes and consequences it creates.

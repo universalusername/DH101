@@ -1,7 +1,7 @@
 # Games & Play
 
 <iframe
-  src="../cherry-player.html"
+  src="./cherry-player.html"
   title="Playable version of New Hire"
   width="100%"
   height="780"

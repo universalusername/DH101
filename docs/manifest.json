@@ -61,72 +61,74 @@
   "Reflections": [
     {
       "path": "./Reflections/week1.md",
-      "label": "Week 1",
-      "description": ""
+      "label": "Creation",
+      "description": "What counts as making in the age of AI? Exploring the ethics, value, and consequences of machine-assisted creation."
     },
     {
       "path": "./Reflections/week2.md",
-      "label": "Week 2",
-      "description": ""
+      "label": "Identity",
+      "description": "Can AI help define humanity, or does it reduce us to patterns? Examining what AI can and cannot capture about human experience."
     },
     {
       "path": "./Reflections/week3.md",
-      "label": "Week 3",
-      "description": ""
+      "label": "Authenticity",
+      "description": "Authenticity in an age of human-AI collaboration. How human choice and agency shape genuine creative expression."
     },
     {
       "path": "./Reflections/week4.md",
-      "label": "Week 4",
-      "description": ""
+      "label": "Role",
+      "description": "Is AI a collaborator, tool, or plagiarist? Untangling the complex roles machines play in storytelling and creative work."
     },
     {
       "path": "./Reflections/week05.md",
-      "label": "Week 5",
-      "description": ""
+      "label": "Ownership",
+      "description": "Who owns AI-made art? Examining authorship and remix culture in a system of distributed creative responsibility."
     },
     {
       "path": "./Reflections/week06.md",
-      "label": "Week 6",
-      "description": ""
+      "label": "Tradeoffs",
+      "description": "What do we gain and lose when machines read literature? Speed and efficiency versus nuanced human interpretation."
     },
     {
       "path": "./Reflections/week07.md",
-      "label": "Week 7",
-      "description": ""
+      "label": "Power",
+      "description": "How AI perpetuates exploitation: examining global inequalities in labor, resources, and environmental impact across north and south."
     },
     {
       "path": "./Reflections/week08.md",
-      "label": "Week 8",
-      "description": ""
+      "label": "Behind the Scenes",
+      "description": "Who is invisible in AI networks? How visualization shapes our understanding of power and responsibility."
     },
     {
       "path": "./Reflections/week09.md",
-      "label": "Week 9",
-      "description": ""
+      "label": "Generation",
+      "description": "When AI generates endlessly, creativity becomes direction. Exploring human agency through rulesets and guidance."
     },
     {
       "path": "./Reflections/week10.md",
-      "label": "Week 10",
-      "description": ""
+      "label": "Rulesets",
+      "description": "How AI changes play, rules, and narrative. Understanding machines as rule-based systems opens new creative possibilities."
     },
     {
       "path": "./Reflections/week11.md",
-      "label": "Week 11",
-      "description": ""
+      "label": "Visibility",
+      "description": "Who does the invisible work of AI, and who profits? Examining the labor exploitation hidden behind corporate gains."
     },
     {
       "path": "./Reflections/week12.md",
-      "label": "Week 12",
-      "description": ""
+      "label": "Ecology",
+      "description": "Is AI sustainable? Weighing ecological trade-offs and the true environmental cost of our technological acceleration."
     },
     {
       "path": "./Reflections/week13.md",
-      "label": "Week 13",
-      "description": ""
+      "label": "Outlook",
+      "description": "Between utopia and dystopia: imagining AI futures and what our expectations reveal about who we are today."
+    },
+    {
+      "path": "./Reflections/week14.md",
+      "label": "Conclusions",
+      "description": "Pondering the AI vs. humanity debate."
     }
-  ],
-  "AI-Log": [
-    "./AI-Log/template-ai-log.md"
   ],
   "Accessibility": [
     {

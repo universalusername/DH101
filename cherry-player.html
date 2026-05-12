@@ -252,7 +252,7 @@ n    <script>
 
       function getRawCandidates() {
         const candidates = [
-          '../Makes/Week 10/Cherry.ink.json',
+          './Makes/7GameMake/Cherry.ink.json',
           './Cherry.ink.json'
         ];
 
@@ -261,7 +261,7 @@ n    <script>
           const repo = currentParts[0];
           const owner = location.hostname.split('.')[0];
           if (owner && repo) {
-            const repoRelativePath = ['Makes', 'Week 10', 'Cherry.ink.json']
+            const repoRelativePath = ['Makes', '7GameMake', 'Cherry.ink.json']
               .map(encodeURIComponent)
               .join('/');
             candidates.push('https://raw.githubusercontent.com/' + owner + '/' + repo + '/main/' + repoRelativePath);

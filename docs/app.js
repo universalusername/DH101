@@ -139,26 +139,73 @@ function buildHomeMarkup(manifest) {
 
 function buildMakePreviewSvg(item) {
   const label = String(item.label || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const title = String(item.title || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const theme = String(item.accent || 'paper');
+  const theme = String(item.theme || item.accent || 'paper');
   const visuals = {
+    selfie: `
+      <rect x="0" y="0" width="1200" height="800" fill="#fde9e2"/>
+      <circle cx="960" cy="170" r="120" fill="#ff5b78" opacity="0.18"/>
+      <rect x="170" y="90" width="460" height="620" rx="56" fill="#242b3b"/>
+      <rect x="198" y="130" width="404" height="530" rx="38" fill="#fef5f0"/>
+      <circle cx="400" cy="302" r="94" fill="#ffd8bf"/>
+      <path d="M320 316C352 348 448 348 480 316" fill="none" stroke="#7a442f" stroke-width="16" stroke-linecap="round"/>
+      <circle cx="366" cy="292" r="12" fill="#2f2f2f"/>
+      <circle cx="434" cy="292" r="12" fill="#2f2f2f"/>
+      <path d="M336 244C352 224 382 214 400 214C418 214 448 224 464 244" fill="none" stroke="#2f2f2f" stroke-width="10" stroke-linecap="round"/>
+      <rect x="286" y="430" width="228" height="170" rx="32" fill="#00b4d8" opacity="0.84"/>
+      <rect x="770" y="170" width="320" height="78" rx="22" fill="#ffffff" opacity="0.9"/>
+      <rect x="770" y="278" width="260" height="62" rx="20" fill="#ffffff" opacity="0.75"/>
+    `,
+    gif: `
+      <rect x="0" y="0" width="1200" height="800" fill="#131a2d"/>
+      <rect x="130" y="130" width="940" height="500" rx="34" fill="#1f2942" stroke="#00b4d8" stroke-width="8"/>
+      <rect x="200" y="220" width="800" height="320" rx="24" fill="#0b101c"/>
+      <rect x="240" y="258" width="160" height="244" rx="14" fill="#ff5b78" opacity="0.8"/>
+      <rect x="430" y="258" width="160" height="244" rx="14" fill="#ffd166" opacity="0.8"/>
+      <rect x="620" y="258" width="160" height="244" rx="14" fill="#06d6a0" opacity="0.8"/>
+      <rect x="810" y="258" width="160" height="244" rx="14" fill="#00b4d8" opacity="0.8"/>
+      <path d="M500 165C620 128 760 170 820 260" fill="none" stroke="#fef5f0" stroke-width="12" stroke-linecap="round"/>
+      <polygon points="822,238 860,280 802,278" fill="#fef5f0"/>
+      <path d="M700 592C576 634 438 596 374 510" fill="none" stroke="#fef5f0" stroke-width="12" stroke-linecap="round"/>
+      <polygon points="372,532 334,490 392,494" fill="#fef5f0"/>
+    `,
+    text: `
+      <rect x="0" y="0" width="1200" height="800" fill="#f6efe2"/>
+      <rect x="190" y="110" width="560" height="580" rx="24" fill="#fffdf8" stroke="#d8cbb8" stroke-width="7"/>
+      <rect x="260" y="190" width="420" height="20" rx="8" fill="#2d3748" opacity="0.85"/>
+      <rect x="260" y="238" width="380" height="16" rx="7" fill="#4a5568" opacity="0.76"/>
+      <rect x="260" y="278" width="430" height="16" rx="7" fill="#4a5568" opacity="0.7"/>
+      <rect x="260" y="318" width="350" height="16" rx="7" fill="#4a5568" opacity="0.64"/>
+      <rect x="260" y="358" width="420" height="16" rx="7" fill="#4a5568" opacity="0.58"/>
+      <rect x="260" y="398" width="390" height="16" rx="7" fill="#4a5568" opacity="0.52"/>
+      <circle cx="860" cy="350" r="130" fill="#dff5fb"/>
+      <circle cx="860" cy="350" r="88" fill="none" stroke="#00b4d8" stroke-width="16"/>
+      <rect x="930" y="430" width="120" height="24" rx="12" transform="rotate(40 930 430)" fill="#00b4d8"/>
+    `,
     map: `
-      <rect x="0" y="0" width="1200" height="800" fill="#dff5fb"/>
-      <path d="M0 120H1200" stroke="rgba(255,255,255,0.45)" stroke-width="16"/>
-      <path d="M0 260H1200" stroke="rgba(255,255,255,0.35)" stroke-width="10"/>
-      <path d="M0 420H1200" stroke="rgba(255,255,255,0.3)" stroke-width="14"/>
-      <path d="M0 590H1200" stroke="rgba(255,255,255,0.28)" stroke-width="12"/>
-      <path d="M120 140C240 80 340 220 450 160S670 240 820 150S1010 220 1130 130" fill="none" stroke="#ff5b78" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M160 680C280 560 380 740 500 620S720 760 860 620S1030 690 1120 580" fill="none" stroke="#00b4d8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-      <circle cx="250" cy="250" r="56" fill="#ffffff" opacity="0.9"/>
-      <circle cx="250" cy="250" r="22" fill="#ff5b78"/>
-      <circle cx="900" cy="520" r="62" fill="#ffffff" opacity="0.9"/>
-      <circle cx="900" cy="520" r="24" fill="#00b4d8"/>
-      <path d="M0 0L1200 800" stroke="rgba(255,255,255,0.3)" stroke-width="6"/>
-      <path d="M1200 0L0 800" stroke="rgba(255,255,255,0.22)" stroke-width="6"/>
-      <rect x="820" y="80" width="300" height="148" rx="28" fill="rgba(255,255,255,0.85)"/>
-      <text x="970" y="145" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="46" font-weight="700" fill="#1a1a1a">${label}</text>
-      <text x="970" y="186" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="22" fill="#6b7280">${title}</text>
+      <rect x="0" y="0" width="1200" height="800" fill="#a8f2f2"/>
+      <path d="M80 90L1140 90" stroke="#dfffff" stroke-width="44" opacity="0.72"/>
+      <path d="M50 220L1110 220" stroke="#dfffff" stroke-width="38" opacity="0.66"/>
+      <path d="M75 350L1160 350" stroke="#dfffff" stroke-width="42" opacity="0.68"/>
+      <path d="M58 485L1120 485" stroke="#dfffff" stroke-width="38" opacity="0.66"/>
+      <path d="M90 620L1150 620" stroke="#dfffff" stroke-width="42" opacity="0.68"/>
+
+      <path d="M118 138L162 112L214 118L258 142L286 176L292 210L274 232L244 242L226 236L208 250L182 248L150 240L124 220L106 192L104 162Z" fill="#fff18a" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M154 108L176 96L194 102L188 124L172 126L160 118Z" fill="#fff18a" stroke="#111111" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <path d="M354 68L392 56L434 64L468 88L488 124L488 156L472 184L448 202L420 214L392 210L368 196L348 172L334 142L336 108Z" fill="#ff4f46" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M334 214L352 246L370 292L366 346L350 400L330 452L316 506L312 560L300 616L284 676L258 696L236 670L240 618L248 568L260 518L270 462L278 408L286 350L300 288L314 246Z" fill="#ff4f46" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <path d="M540 126L586 110L642 116L692 132L736 164L762 206L770 250L760 284L736 314L700 334L662 340L622 334L586 320L552 292L530 254L522 210L526 170Z" fill="#7f78ff" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M650 92L708 86L776 98L836 126L884 164L914 210L918 250L906 286L884 318L854 334L820 340L790 332L766 316L752 290L756 256L742 216L712 184L674 166L642 152Z" fill="#7f78ff" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <path d="M534 406L572 392L616 398L650 420L666 454L660 492L638 520L604 534L568 532L536 520L512 494L504 458L508 426Z" fill="#66f06a" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <path d="M872 386L904 372L944 380L970 406L970 440L958 468L936 492L904 504L876 494L850 472L838 444L842 414Z" fill="#ff9f2e" stroke="#111111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <path d="M220 148L208 138L226 132" fill="none" stroke="#111111" stroke-width="9" stroke-linecap="round"/>
+      <path d="M684 228L706 220L716 238" fill="none" stroke="#111111" stroke-width="9" stroke-linecap="round"/>
+      <path d="M590 468L604 456L622 470" fill="none" stroke="#111111" stroke-width="9" stroke-linecap="round"/>
+      <path d="M74 54L1128 54L1128 744L74 744Z" fill="none" stroke="#111111" stroke-width="12"/>
     `,
     game: `
       <rect x="0" y="0" width="1200" height="800" fill="#0d1321"/>
@@ -172,8 +219,6 @@ function buildMakePreviewSvg(item) {
       <rect x="420" y="552" width="170" height="48" rx="16" fill="#ffffff" opacity="0.9"/>
       <rect x="620" y="552" width="170" height="48" rx="16" fill="#00b4d8"/>
       <rect x="820" y="552" width="120" height="48" rx="16" fill="#ffc107"/>
-      <text x="600" y="710" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="40" font-weight="700" fill="#fef5f0">${label}</text>
-      <text x="600" y="754" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="22" fill="#b7c4d6">${title}</text>
     `,
     paper: `
       <rect x="0" y="0" width="1200" height="800" fill="#f9f4ec"/>
@@ -184,8 +229,6 @@ function buildMakePreviewSvg(item) {
       <rect x="540" y="400" width="540" height="70" rx="18" fill="#fef5f0"/>
       <rect x="540" y="490" width="540" height="70" rx="18" fill="#fff1b8"/>
       <rect x="190" y="520" width="260" height="120" rx="18" fill="#ff5b78" opacity="0.12"/>
-      <text x="600" y="690" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="44" font-weight="700" fill="#1a1a1a">${label}</text>
-      <text x="600" y="734" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="22" fill="#6b7280">${title}</text>
     `,
     neon: `
       <rect x="0" y="0" width="1200" height="800" fill="#fef5f0"/>
@@ -194,8 +237,80 @@ function buildMakePreviewSvg(item) {
       <circle cx="920" cy="620" r="160" fill="#ffc107" opacity="0.12"/>
       <path d="M170 570C250 460 330 620 410 520S560 610 650 500S810 640 920 510S1070 610 1120 540" fill="none" stroke="#ff5b78" stroke-width="18" stroke-linecap="round"/>
       <path d="M150 640H1050" stroke="#1a1a1a" stroke-width="10" opacity="0.18"/>
-      <text x="600" y="260" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="60" font-weight="700" fill="#1a1a1a">${label}</text>
-      <text x="600" y="320" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="26" fill="#6b7280">${title}</text>
+    `,
+    network: `
+      <rect x="0" y="0" width="1200" height="800" fill="#0f172a"/>
+      <path d="M180 210L410 140L610 260L830 170L1030 260" stroke="#38bdf8" stroke-width="8" fill="none"/>
+      <path d="M180 210L290 430L520 520L760 470L1030 260" stroke="#fb7185" stroke-width="8" fill="none"/>
+      <path d="M290 430L410 140" stroke="#facc15" stroke-width="7"/>
+      <path d="M520 520L610 260" stroke="#22d3ee" stroke-width="7"/>
+      <path d="M760 470L830 170" stroke="#f9a8d4" stroke-width="7"/>
+      <circle cx="180" cy="210" r="34" fill="#0ea5e9"/>
+      <circle cx="410" cy="140" r="34" fill="#22c55e"/>
+      <circle cx="610" cy="260" r="34" fill="#f59e0b"/>
+      <circle cx="830" cy="170" r="34" fill="#ef4444"/>
+      <circle cx="1030" cy="260" r="34" fill="#a78bfa"/>
+      <circle cx="290" cy="430" r="30" fill="#06b6d4"/>
+      <circle cx="520" cy="520" r="30" fill="#f43f5e"/>
+      <circle cx="760" cy="470" r="30" fill="#84cc16"/>
+      <rect x="760" y="560" width="330" height="120" rx="24" fill="rgba(255,255,255,0.9)"/>
+    `,
+    bot: `
+      <rect x="0" y="0" width="1200" height="800" fill="#f5f9ff"/>
+      <circle cx="210" cy="170" r="100" fill="#c7f9ff"/>
+      <circle cx="980" cy="620" r="140" fill="#ffe0ef"/>
+      <rect x="340" y="170" width="520" height="360" rx="56" fill="#1f2937"/>
+      <rect x="380" y="220" width="440" height="230" rx="34" fill="#f8fafc"/>
+      <circle cx="510" cy="334" r="38" fill="#0ea5e9"/>
+      <circle cx="690" cy="334" r="38" fill="#0ea5e9"/>
+      <rect x="530" y="424" width="140" height="24" rx="12" fill="#22c55e"/>
+      <rect x="572" y="118" width="56" height="52" rx="18" fill="#1f2937"/>
+      <circle cx="600" cy="92" r="28" fill="#ef4444"/>
+      <rect x="190" y="340" width="130" height="92" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="4"/>
+      <rect x="880" y="280" width="180" height="114" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="4"/>
+    `,
+    play: `
+      <rect x="0" y="0" width="1200" height="800" fill="#101014"/>
+      <rect x="170" y="140" width="860" height="520" rx="46" fill="#1f2432" stroke="#3b4254" stroke-width="8"/>
+      <rect x="300" y="320" width="600" height="220" rx="110" fill="#2f374b"/>
+      <circle cx="440" cy="430" r="72" fill="#111827"/>
+      <rect x="404" y="418" width="72" height="24" rx="12" fill="#f8fafc"/>
+      <rect x="428" y="394" width="24" height="72" rx="12" fill="#f8fafc"/>
+      <circle cx="760" cy="398" r="26" fill="#f43f5e"/>
+      <circle cx="816" cy="430" r="26" fill="#22d3ee"/>
+      <circle cx="760" cy="462" r="26" fill="#facc15"/>
+      <circle cx="704" cy="430" r="26" fill="#4ade80"/>
+      <rect x="520" y="402" width="160" height="56" rx="20" fill="#111827"/>
+      <rect x="560" y="418" width="36" height="24" rx="8" fill="#cbd5e1"/>
+      <rect x="604" y="418" width="36" height="24" rx="8" fill="#cbd5e1"/>
+      <rect x="420" y="210" width="360" height="78" rx="24" fill="#0ea5e9" opacity="0.9"/>
+    `,
+    visualization: `
+      <rect x="0" y="0" width="1200" height="800" fill="#eefbf4"/>
+      <rect x="140" y="120" width="920" height="560" rx="34" fill="#ffffff" stroke="#d2e9db" stroke-width="6"/>
+      <line x1="240" y1="560" x2="940" y2="560" stroke="#334155" stroke-width="8"/>
+      <line x1="240" y1="560" x2="240" y2="220" stroke="#334155" stroke-width="8"/>
+      <rect x="300" y="430" width="86" height="130" rx="10" fill="#38bdf8"/>
+      <rect x="430" y="360" width="86" height="200" rx="10" fill="#22c55e"/>
+      <rect x="560" y="300" width="86" height="260" rx="10" fill="#f59e0b"/>
+      <rect x="690" y="260" width="86" height="300" rx="10" fill="#ef4444"/>
+      <rect x="820" y="220" width="86" height="340" rx="10" fill="#8b5cf6"/>
+      <path d="M300 390C420 330 540 340 650 280S840 240 906 210" fill="none" stroke="#10b981" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="906" cy="210" r="18" fill="#10b981"/>
+    `,
+    museum: `
+      <rect x="0" y="0" width="1200" height="800" fill="#f8f1e8"/>
+      <rect x="60" y="640" width="1080" height="110" fill="#d8c4aa"/>
+      <rect x="220" y="280" width="760" height="340" rx="16" fill="#fff8ef" stroke="#c7b093" stroke-width="8"/>
+      <polygon points="180,280 1020,280 600,120" fill="#e8d7c1" stroke="#c7b093" stroke-width="8"/>
+      <rect x="560" y="470" width="80" height="150" fill="#d9c0a2"/>
+      <rect x="300" y="350" width="70" height="270" fill="#e7d4bd"/>
+      <rect x="430" y="350" width="70" height="270" fill="#e7d4bd"/>
+      <rect x="700" y="350" width="70" height="270" fill="#e7d4bd"/>
+      <rect x="830" y="350" width="70" height="270" fill="#e7d4bd"/>
+      <rect x="280" y="300" width="640" height="30" fill="#c9b092"/>
+      <circle cx="250" cy="230" r="22" fill="#ffd166" opacity="0.65"/>
+      <circle cx="950" cy="210" r="30" fill="#00b4d8" opacity="0.45"/>
     `
   };
   const svg = `
@@ -326,7 +441,7 @@ function showFolderPage(manifest, folder) {
 
     const intro = document.createElement('div');
     intro.className = 'makes-intro';
-    intro.innerHTML = '<p class="eyebrow">Makes</p><h2>Current artifacts.</h2><p class="makes-intro-copy">Each make gets its own card so the page reads like a gallery of completed pieces, not a file list.</p>';
+    intro.innerHTML = '<h2>AI Artifacts Showcase</h2><p class="makes-intro-copy">Explore different facets of AI through my various projects.</p>';
     page.appendChild(intro);
 
     const grid = document.createElement('div');
@@ -334,6 +449,7 @@ function showFolderPage(manifest, folder) {
 
     const makesTitles = ['Selfie', 'GIF', 'Text', 'Map', 'Network', 'Bot', 'Play', 'Visualization', 'Museum'];
     const cardTypes = ['neon', 'game', 'paper', 'map', 'neon', 'game', 'paper', 'neon', 'paper'];
+    const previewThemes = ['selfie', 'gif', 'text', 'map', 'network', 'bot', 'play', 'visualization', 'museum'];
     const makeDescriptions = [
       'AI-generated portraits remixed with human imperfections',
       'Looping surveillance imagery exploring constant observation',
@@ -361,6 +477,7 @@ function showFolderPage(manifest, folder) {
       ...item,
       title: makesTitles[index] || item.label,
       cardType: cardTypes[index] || 'neon',
+      previewTheme: previewThemes[index] || 'paper',
       description: makeDescriptions[index] || 'Click to explore',
       tags: makeTags[index] || ['Make'],
       path: item.path
@@ -369,10 +486,11 @@ function showFolderPage(manifest, folder) {
     makesFolders.forEach(item => {
       const card = document.createElement('article');
       card.className = `make-card make-card--${item.cardType}`;
+      card.dataset.make = String(item.title || '').toLowerCase().replace(/\s+/g, '-');
 
       const preview = document.createElement('div');
       preview.className = `make-preview make-preview--${item.cardType}`;
-      const svgDataUrl = buildMakePreviewSvg({ label: item.label, title: item.title, accent: item.cardType });
+      const svgDataUrl = buildMakePreviewSvg({ label: item.label, title: item.title, accent: item.cardType, theme: item.previewTheme });
       preview.innerHTML = `<img src="${svgDataUrl}" alt="${item.title}" />`;
       card.appendChild(preview);
 
@@ -418,7 +536,7 @@ function showFolderPage(manifest, folder) {
 
     const intro = document.createElement('div');
     intro.className = 'makes-intro';
-    intro.innerHTML = '<p class="eyebrow">Reflections</p><h2>Weekly reflection trail.</h2><p class="makes-intro-copy">These entries are arranged as a sequence so the semester reads like a progression of ideas instead of isolated pages.</p>';
+    intro.innerHTML = '<h2>Facets of AI - Thoughts and Reflections</h2><p class="makes-intro-copy">As AI becomes more and more integrated into daily life, it is important to consider its full impact.</p>';
     page.appendChild(intro);
 
     const entries = getSectionEntries(manifest, 'Reflections');
@@ -431,7 +549,6 @@ function showFolderPage(manifest, folder) {
       card.className = 'reflection-card';
       card.dataset.path = entry.path;
       card.innerHTML = `
-        <span class="section-card-badge">Week ${index + 1}</span>
         <h3>${entry.label}</h3>
         <p>${entry.description || 'Open the reflection to read more.'}</p>
         <div class="section-card-meta">Read reflection</div>
